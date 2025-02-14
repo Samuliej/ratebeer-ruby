@@ -3,9 +3,9 @@
 one:
   name: MyString
   style: MyString
-  brewery_id: 1
+  brewery: one
 
 two:
   name: MyString
   style: MyString
-  brewery_id: 1
+  brewery: one
