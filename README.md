@@ -1,24 +1,8 @@
-# README
+# ratebeer
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Samuli Toppi
 
-Things you may want to cover:
+## Viikko 1
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Tehdyt tehtävät 1 - 11, välikommitit unohtui.
+* Linkki sovelluksen breweries sivustolle: https://ratebeer-app-divine-sun-6430.fly.dev/beers  
