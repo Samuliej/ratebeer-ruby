@@ -13,7 +13,6 @@ console_command = '/rails/bin/rails console'
   release_command = './bin/rails db:prepare'
 
 [env]
-  DATABASE_URL = 'sqlite3:///data/production.sqlite3'
   PORT = '8080'
 
 [processes]
