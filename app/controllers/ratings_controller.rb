@@ -3,5 +3,6 @@ class RatingsController < ApplicationController
   # hakemistossa olevan index-nimisen näkymän
   # render :index
   def index
+    @ratings = Rating.all
   end
 end
