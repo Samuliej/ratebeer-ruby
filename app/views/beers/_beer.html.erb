@@ -3,12 +3,6 @@
     <%= link_to beer.name, beer %>
   </h2>
 
-  <% if beer.ratings.empty? %>
-    <p>Beer has not been rated yet!</p>
-  <% else %>
-    <p>Beer has <%= beer.ratings.count %> ratings with an average of <%= beer.average_rating %> / 50</p>
-  <% end %>
-
   <p>
     <strong>Style:</strong>
     <%= beer.style %>
@@ -19,5 +13,11 @@
     <!-- Rails automatically replaces the beer.brewery with brewery_path -->
     <%= link_to beer.brewery.name, beer.brewery %>
   </p>
+
+  <% if beer.ratings.empty? %>
+    <p><%= beer.name %> has not been rated yet!</p>
+  <% else %>
+    <p><%= beer.name %> has <%= beer.ratings.count %> ratings with an average of <%= beer.average_rating %> / 50</p>
+  <% end %>
 
 </div>
