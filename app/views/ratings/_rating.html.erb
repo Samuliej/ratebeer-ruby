@@ -1,6 +1,5 @@
 <div id="<%= dom_id rating %>">
   <p>
-    <% rating_string = "#{rating.beer.name} #{rating.score}" %>
-    <%= rating_string %>
+    <%= rating.to_s %>
   </p>
 </div>
