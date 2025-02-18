@@ -13,4 +13,14 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  # Ohjaa juureen tulevat pyynnöt panimoiden sivulle
+  root "breweries#index"
+
+  # Kutsutaan get metodia kahdella parametrillä. merkkijono ja hash
+  # Sama kuin kirjoitettaisiin
+  # get('kaikki_bisset', { :to => 'beers#index' })
+  get "kaikki_bisset", to: "beers#index"
+
+  get "ratings", to: "ratings#index"
 end

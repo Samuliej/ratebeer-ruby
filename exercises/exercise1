@@ -1,0 +1,138 @@
+ratebeer(dev)> dog = Brewery.create name: "BrewDog", year: 2007
+  TRANSACTION (0.8ms)  BEGIN immediate TRANSACTION /*application='Ratebeer'*/
+  Brewery Create (1.5ms)  INSERT INTO "breweries" ("name", "year", "created_at", "updated_at") VALUES ('BrewDog', 2007, '2025-02-18 08:06:45.963754', '2025-02-18 08:06:45.963754') RETURNING "id" /*application='Ratebeer'*/
+  TRANSACTION (0.8ms)  COMMIT TRANSACTION /*application='Ratebeer'*/
+=> 
+#<Brewery:0x00007ff7bfb8ce50
+...
+
+
+ratebeer(dev)> dog
+=> 
+#<Brewery:0x00007ff7bfb8ce50
+ id: 5,
+ name: "BrewDog",
+ year: 2007,
+ created_at: "2025-02-18 08:06:45.963754000 +0000",
+ updated_at: "2025-02-18 08:06:45.963754000 +0000">
+
+
+ratebeer(dev)> dog.beers.create name: "Punk IPA", style: "IPA"
+  TRANSACTION (0.7ms)  BEGIN immediate TRANSACTION /*application='Ratebeer'*/
+  Beer Create (1.4ms)  INSERT INTO "beers" ("name", "style", "brewery_id", "created_at", "updated_at") VALUES ('Punk IPA', 'IPA', 5, '2025-02-18 08:07:19.166832', '2025-02-18 08:07:19.166832') RETURNING "id" /*application='Ratebeer'*/
+  TRANSACTION (0.7ms)  COMMIT TRANSACTION /*application='Ratebeer'*/
+=> 
+#<Beer:0x00007ff7cc66bb80
+ id: 15,
+ name: "Punk IPA",
+ style: "IPA",
+ brewery_id: 5,
+ created_at: "2025-02-18 08:07:19.166832000 +0000",
+ updated_at: "2025-02-18 08:07:19.166832000 +0000">
+
+
+ratebeer(dev)> dog.beers.create name: "Nanny State", style: "lowalcohol"
+  TRANSACTION (0.7ms)  BEGIN immediate TRANSACTION /*application='Ratebeer'*/
+  Beer Create (1.3ms)  INSERT INTO "beers" ("name", "style", "brewery_id", "created_at", "updated_at") VALUES ('Nanny State', 'lowalcohol', 5, '2025-02-18 08:07:33.710157', '2025-02-18 08:07:33.710157') RETURNING "id" /*application='Ratebeer'*/
+  TRANSACTION (0.8ms)  COMMIT TRANSACTION /*application='Ratebeer'*/
+=> 
+#<Beer:0x00007ff7cd70e758
+ id: 16,
+ name: "Nanny State",
+ style: "lowalcohol",
+ brewery_id: 5,
+ created_at: "2025-02-18 08:07:33.710157000 +0000",
+ updated_at: "2025-02-18 08:07:33.710157000 +0000">
+
+ratebeer(dev)> punk = Beer.find_by name: "Punk IPA"
+  Beer Load (0.9ms)  SELECT "beers".* FROM "beers" WHERE "beers"."name" = 'Punk IPA' LIMIT 1 /*application='Ratebeer'*/
+=> 
+#<Beer:0x00007ff7cc8358d0
+...
+
+
+ratebeer(dev)> punk.ratings.create score: 20
+  TRANSACTION (0.4ms)  BEGIN immediate TRANSACTION /*application='Ratebeer'*/
+  Rating Create (1.5ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (20, 15, '2025-02-18 08:08:24.890851', '2025-02-18 08:08:24.890851') RETURNING "id" /*application='Ratebeer'*/
+  TRANSACTION (0.5ms)  COMMIT TRANSACTION /*application='Ratebeer'*/
+=> 
+#<Rating:0x00007ff7cc7f0780
+ id: 5,
+ score: 20,
+ beer_id: 15,
+ created_at: "2025-02-18 08:08:24.890851000 +0000",
+ updated_at: "2025-02-18 08:08:24.890851000 +0000">
+
+
+ratebeer(dev)> punk.ratings.create score: 45
+  TRANSACTION (0.8ms)  BEGIN immediate TRANSACTION /*application='Ratebeer'*/
+  Rating Create (1.5ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (45, 15, '2025-02-18 08:08:32.852085', '2025-02-18 08:08:32.852085') RETURNING "id" /*application='Ratebeer'*/
+  TRANSACTION (0.8ms)  COMMIT TRANSACTION /*application='Ratebeer'*/
+=> 
+#<Rating:0x00007ff7bfb739a0
+ id: 6,
+ score: 45,
+ beer_id: 15,
+ created_at: "2025-02-18 08:08:32.852085000 +0000",
+ updated_at: "2025-02-18 08:08:32.852085000 +0000">
+
+
+ratebeer(dev)> punk.ratings.create score: 33
+  TRANSACTION (1.2ms)  BEGIN immediate TRANSACTION /*application='Ratebeer'*/
+  Rating Create (1.9ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (33, 15, '2025-02-18 08:08:36.968026', '2025-02-18 08:08:36.968026') RETURNING "id" /*application='Ratebeer'*/
+  TRANSACTION (0.7ms)  COMMIT TRANSACTION /*application='Ratebeer'*/
+=> 
+#<Rating:0x00007ff7bfb88350
+ id: 7,
+ score: 33,
+ beer_id: 15,
+ created_at: "2025-02-18 08:08:36.968026000 +0000",
+ updated_at: "2025-02-18 08:08:36.968026000 +0000">
+
+
+ratebeer(dev)> nanny = Beer.find_by name "Nanny State"
+(ratebeer):29:in '<main>': undefined method 'name' for main (NoMethodError)
+ratebeer(dev)> nanny = Beer.find_by name: "Nanny State"
+  Beer Load (0.8ms)  SELECT "beers".* FROM "beers" WHERE "beers"."name" = 'Nanny State' LIMIT 1 /*application='Ratebeer'*/
+=> 
+#<Beer:0x00007ff7bfb71a60
+...
+
+
+ratebeer(dev)> nanny.ratings.create score: 10
+  TRANSACTION (0.4ms)  BEGIN immediate TRANSACTION /*application='Ratebeer'*/
+  Rating Create (1.2ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (10, 16, '2025-02-18 08:09:07.137557', '2025-02-18 08:09:07.137557') RETURNING "id" /*application='Ratebeer'*/
+  TRANSACTION (0.6ms)  COMMIT TRANSACTION /*application='Ratebeer'*/
+=> 
+#<Rating:0x00007ff7bfb8cd10
+ id: 8,
+ score: 10,
+ beer_id: 16,
+ created_at: "2025-02-18 08:09:07.137557000 +0000",
+ updated_at: "2025-02-18 08:09:07.137557000 +0000">
+
+
+ratebeer(dev)> nanny.ratings.create score: 16
+  TRANSACTION (0.9ms)  BEGIN immediate TRANSACTION /*application='Ratebeer'*/
+  Rating Create (1.4ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (16, 16, '2025-02-18 08:09:08.808957', '2025-02-18 08:09:08.808957') RETURNING "id" /*application='Ratebeer'*/
+  TRANSACTION (0.8ms)  COMMIT TRANSACTION /*application='Ratebeer'*/
+=> 
+#<Rating:0x00007ff7bfb84b10
+ id: 9,
+ score: 16,
+ beer_id: 16,
+ created_at: "2025-02-18 08:09:08.808957000 +0000",
+ updated_at: "2025-02-18 08:09:08.808957000 +0000">
+
+
+ratebeer(dev)> nanny.ratings.create score: 22
+  TRANSACTION (0.7ms)  BEGIN immediate TRANSACTION /*application='Ratebeer'*/
+  Rating Create (1.4ms)  INSERT INTO "ratings" ("score", "beer_id", "created_at", "updated_at") VALUES (22, 16, '2025-02-18 08:09:10.656375', '2025-02-18 08:09:10.656375') RETURNING "id" /*application='Ratebeer'*/
+  TRANSACTION (0.6ms)  COMMIT TRANSACTION /*application='Ratebeer'*/
+=> 
+#<Rating:0x00007ff7cc7fca80
+ id: 10,
+ score: 22,
+ beer_id: 16,
+ created_at: "2025-02-18 08:09:10.656375000 +0000",
+ updated_at: "2025-02-18 08:09:10.656375000 +0000">

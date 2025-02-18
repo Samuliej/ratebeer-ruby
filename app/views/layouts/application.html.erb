@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
+    <!-- Metodi estämään CSRF-hyökkäyksiä -->
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -25,9 +26,19 @@
   <body>
     <!-- kaukaa viisas -->
     <header>
-      <%= link_to 'list of beers', beers_path %>
+      <div class="navibar">
+        <ul>
+          <li>
+            <%= link_to 'breweries', breweries_path %>
+          </li>
+          <li>
+            <%= link_to 'beers', beers_path %>            
+          </li>
+        </ul>
+      </div>
     </header>
 
+    <!-- Yield elementin kohdalle rendoröityy näkymätemplaten määrittelemä sisältö -->
     <%= yield %>
   </body>
 </html>
