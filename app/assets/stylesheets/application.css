@@ -1,6 +1,7 @@
 .navibar {
     padding: 10px;
-    background: #EFEFEF;
+    background: #3e3e3e;
+    border-radius: 3px;
 }
 
 .navibar ul {
@@ -11,4 +12,15 @@
 
 .navibar li:not(:first-child) {
     padding-left: 3em;
+}
+
+.navibar li a {
+    color: white;
+    padding: 2px;
+    border-radius: 3px;
+    text-decoration: none;
+}
+
+.navibar li a:hover {
+    background-color: rgb(255, 153, 0);
 }

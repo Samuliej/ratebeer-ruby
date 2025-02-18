@@ -17,7 +17,7 @@
   <% if beer.ratings.empty? %>
     <p><%= beer.name %> has not been rated yet!</p>
   <% else %>
-    <p><%= beer.name %> has <%= beer.ratings.count %> ratings with an average of <%= beer.average_rating %> / 50</p>
+    <p><%= beer.name %> has <%= pluralize(beer.ratings.count, "rating") %> with an average of <%= beer.average_rating %> / 50</p>
   <% end %>
 
 </div>
