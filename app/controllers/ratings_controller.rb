@@ -10,6 +10,9 @@ class RatingsController < ApplicationController
   # avulla oletusarvoisesti renderöitävälle näkymätemplatelle
   def new
     @rating = Rating.new
+    # Luodaan oluista instanssimuuttuja, jotta
+    # ratingin "tiedossa" on kaikki oluet
+    @beers = Beer.all
   end
 
   def create

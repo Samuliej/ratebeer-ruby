@@ -18,4 +18,8 @@ class Beer < ApplicationRecord
     # Lasketaan keskiarvo sekä tiivistetään yhteen desimaaliin
     (summa / (self.ratings.count.to_f)).truncate(1)
   end
+
+  def to_s
+    "#{self.name} #{self.style}, by #{self.brewery.name}"
+  end
 end
