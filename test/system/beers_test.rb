@@ -39,7 +39,9 @@ class BeersTest < ApplicationSystemTestCase
 
   test "should destroy Beer" do
     visit beer_url(@beer)
-    click_on "Destroy this beer", match: :first
+    accept_alert do
+      click_on "Destroy this beer", match: :first
+    end
 
     assert_text "Beer was successfully destroyed"
   end
