@@ -24,3 +24,12 @@
 .navibar li a:hover {
     background-color: rgb(255, 153, 0);
 }
+
+.rating-list li {
+    display: flex;
+    align-items: center;
+}
+
+.rating-list li button {
+    margin-left: 5px;
+}

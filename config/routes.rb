@@ -17,14 +17,5 @@ Rails.application.routes.draw do
   # Ohjaa juureen tulevat pyynnöt panimoiden sivulle
   root "breweries#index"
 
-  # Kutsutaan get metodia kahdella parametrillä. merkkijono ja hash
-  # Sama kuin kirjoitettaisiin
-  # get('kaikki_bisset', { :to => 'beers#index' })
-  get "kaikki_bisset", to: "beers#index"
-
-  get "ratings", to: "ratings#index"
-
-  get "ratings/new", to: "ratings#new"
-
-  post "ratings", to: "ratings#create"
+  resources :ratings, only: [ :index, :new, :create, :destroy ]
 end
