@@ -1,5 +1,6 @@
 class BeersController < ApplicationController
   before_action :set_beer, only: %i[ show edit update destroy ]
+  before_action :set_brewery_and_styles, only: %i[ new edit ]
 
   # GET /beers or /beers.json
   def index
@@ -13,7 +14,6 @@ class BeersController < ApplicationController
   # GET /beers/new
   def new
     @beer = Beer.new
-    @breweries = Brewery.all
   end
 
   # GET /beers/1/edit
@@ -62,6 +62,11 @@ class BeersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_beer
       @beer = Beer.find(params.expect(:id))
+    end
+
+    def set_brewery_and_styles
+      @breweries = Brewery.all
+      @styles = [ "Weizen", "Lager", "Pale ale", "IPA", "Porter", "Lowalcohol", "NEIPA" ]
     end
 
     # Only allow a list of trusted parameters through.

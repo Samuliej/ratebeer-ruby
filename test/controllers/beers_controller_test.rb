@@ -20,7 +20,7 @@ class BeersControllerTest < ActionDispatch::IntegrationTest
       post beers_url, params: { beer: { brewery_id: @beer.brewery_id, name: @beer.name, style: @beer.style } }
     end
 
-    assert_redirected_to beer_url(Beer.last)
+    assert_redirected_to beers_path
   end
 
   test "should show beer" do
