@@ -2,6 +2,8 @@
 
 <p>Ratings count: <%= @ratings.count %></p>
 
+<%= link_to 'Create a new rating', ratings_new_path %>
+
 <ul>
     <% @ratings.each do |rating| %>
         <li> <%= render rating %> </li>
