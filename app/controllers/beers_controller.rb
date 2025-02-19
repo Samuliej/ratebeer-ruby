@@ -64,6 +64,8 @@ class BeersController < ApplicationController
       @beer = Beer.find(params.expect(:id))
     end
 
+    # Unohdin että tein tehtävän 10 myös
+    # kun aloin korjailemaan testejä
     def set_brewery_and_styles
       @breweries = Brewery.all
       @styles = [ "Weizen", "Lager", "Pale ale", "IPA", "Porter", "Lowalcohol", "NEIPA" ]
