@@ -1,6 +1,10 @@
 class Beer < ApplicationRecord
   belongs_to :brewery
-  has_many :ratings
+  # Merkitään ratingit riippuvaisiksi oluista
+  # poistaessa oluen, poistuu myös ratingit.
+  # Sain konsolista poistettua kaikki orvot kivalla onelinerilla:
+  # Rating.all.select { |r| !Beer.exists?(r.beer_id) }.each { |orpo| orpo.destroy }
+  has_many :ratings, dependent: :destroy
 
   def average_rating
     # Lasketaan oluet olion ratings olioiden
