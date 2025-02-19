@@ -3,6 +3,7 @@ require "application_system_test_case"
 class BeersTest < ApplicationSystemTestCase
   setup do
     @beer = beers(:one)
+    @secondBeer = beers(:two)
   end
 
   test "visiting the index" do
@@ -14,26 +15,26 @@ class BeersTest < ApplicationSystemTestCase
     visit beers_url
     click_on "New beer"
 
-    fill_in "Brewery", with: @beer.brewery_id
     fill_in "Name", with: @beer.name
-    fill_in "Style", with: @beer.style
+    select @beer.brewery.name, from: "Brewery"
+    select @beer.style, from: "Style"
     click_on "Create Beer"
 
     assert_text "Beer was successfully created"
-    click_on "Back"
+    assert_current_path beers_path
   end
 
   test "should update Beer" do
     visit beer_url(@beer)
     click_on "Edit this beer", match: :first
 
-    fill_in "Brewery", with: @beer.brewery_id
-    fill_in "Name", with: @beer.name
-    fill_in "Style", with: @beer.style
+    fill_in "Name", with: @secondBeer.name
+    select @beer.brewery.name, from: "Brewery"
+    select @secondBeer.style, from: "Style"
     click_on "Update Beer"
 
     assert_text "Beer was successfully updated"
-    click_on "Back"
+    assert_current_path beer_path(@beer)
   end
 
   test "should destroy Beer" do
