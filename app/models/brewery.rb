@@ -15,6 +15,13 @@ class Brewery < ApplicationRecord
     puts "changed year to #{year}"
   end
 
+  def average_rating
+    all_ratings = self.ratings.map { |rating| rating.score }
+    all_score_sum = all_ratings.inject(:+)
+
+    all_score_sum / all_ratings.size
+  end
+
 
   # Defaultit getterit ja setterit näyttävät
   # suurinpiirtein tältä

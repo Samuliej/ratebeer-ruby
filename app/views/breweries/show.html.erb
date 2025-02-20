@@ -1,6 +1,18 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @brewery %>
+<% beers_count = @brewery.beers.count %>
+
+
+<% if @brewery.ratings.empty? %>
+  <p>
+    This brewery's <%= pluralize(beers_count, "beer") %> <% pluralize(beers_count, "has") %> not been rated yet.
+  </p>
+<% else %>
+  <p>
+    Brewery has <%= pluralize(@brewery.ratings.count, "rating") %>  with an average rating of <%= @brewery.average_rating %> / 50
+  </p>
+<% end %>
 
 <div>
   <%= link_to "Edit this brewery", edit_brewery_path(@brewery) %> |
