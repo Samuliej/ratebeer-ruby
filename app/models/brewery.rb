@@ -2,6 +2,7 @@ class Brewery < ApplicationRecord
   has_many :beers, dependent: :destroy
   # Asetetaan assosiaatio ratingeille oluiden kautta
   has_many :ratings, through: :beers
+  include RatingAverage
 
   def print_report
     puts name
@@ -16,10 +17,8 @@ class Brewery < ApplicationRecord
   end
 
   def average_rating
-    all_ratings = self.ratings.map { |rating| rating.score }
-    all_score_sum = all_ratings.inject(:+)
-
-    all_score_sum / all_ratings.size
+    @ratings = self.ratings
+    calculate_average
   end
 
 
