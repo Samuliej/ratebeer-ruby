@@ -8,11 +8,17 @@ class Beer < ApplicationRecord
   include RatingAverage
 
   def average_rating
-    @ratings = self.ratings
+    @ratings = ratings
     calculate_average
   end
 
+  def average
+    return 0 if ratings.empty?
+
+    ratings.sum(&:score) / ratings.count.to_f
+  end
+
   def to_s
-    "#{self.name} #{self.style}, by #{self.brewery.name}"
+    "#{name} #{style}, by #{brewery.name}"
   end
 end

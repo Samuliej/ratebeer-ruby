@@ -1,6 +1,6 @@
 class BreweriesController < ApplicationController
-  before_action :set_brewery, only: %i[ show edit update destroy ]
-  before_action :authenticate, only: [ :destroy ]
+  before_action :set_brewery, only: %i[show edit update destroy]
+  before_action :authenticate, only: [:destroy]
 
   # GET /breweries or /breweries.json
   def index
@@ -26,7 +26,7 @@ class BreweriesController < ApplicationController
 
     respond_to do |format|
       if @brewery.save
-        format.html { redirect_to @brewery, notice: "Brewery was successfully created." }
+        format.html { redirect_to @brewery, notice: I18n.t('notices.brewery_created') }
         format.json { render :show, status: :created, location: @brewery }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +39,7 @@ class BreweriesController < ApplicationController
   def update
     respond_to do |format|
       if @brewery.update(brewery_params)
-        format.html { redirect_to @brewery, notice: "Brewery was successfully updated." }
+        format.html { redirect_to @brewery, notice: I18n.t('notices.brewery_updated') }
         format.json { render :show, status: :ok, location: @brewery }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,27 +53,28 @@ class BreweriesController < ApplicationController
     @brewery.destroy!
 
     respond_to do |format|
-      format.html { redirect_to breweries_path, status: :see_other, notice: "Brewery was successfully destroyed." }
+      format.html { redirect_to breweries_path, status: :see_other, notice: I18n.t('notices.brewery_destroyed') }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_brewery
-      @brewery = Brewery.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def brewery_params
-      params.expect(brewery: [ :name, :year ])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_brewery
+    @brewery = Brewery.find(params.expect(:id))
+  end
 
-    def authenticate
-      admin_accounts = { "pekka" => "beer", "arto" => "foobar", "matti" => "ittam", "vilma" => "kangas" }
+  # Only allow a list of trusted parameters through.
+  def brewery_params
+    params.expect(brewery: [:name, :year])
+  end
 
-      authenticate_or_request_with_http_basic do |username, password|
-        admin_accounts.any? { |valid_username, valid_password| username == valid_username and password == valid_password }
-      end
+  def authenticate
+    admin_accounts = { "pekka" => "beer", "arto" => "foobar", "matti" => "ittam", "vilma" => "kangas" }
+
+    authenticate_or_request_with_http_basic do |username, password|
+      admin_accounts.any? { |valid_username, valid_password| username == valid_username and password == valid_password }
     end
+  end
 end

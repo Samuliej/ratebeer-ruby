@@ -1,6 +1,6 @@
 class BeersController < ApplicationController
-  before_action :set_beer, only: %i[ show edit update destroy ]
-  before_action :set_brewery_and_styles, only: %i[ new edit update ]
+  before_action :set_beer, only: %i[show edit update destroy]
+  before_action :set_brewery_and_styles, only: %i[new edit update]
 
   # GET /beers or /beers.json
   def index
@@ -59,20 +59,21 @@ class BeersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_beer
-      @beer = Beer.find(params.expect(:id))
-    end
 
-    # Unohdin että tein tehtävän 10 myös
-    # kun aloin korjailemaan testejä
-    def set_brewery_and_styles
-      @breweries = Brewery.all
-      @styles = [ "Weizen", "Lager", "Pale ale", "IPA", "Porter", "Lowalcohol", "NEIPA" ]
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_beer
+    @beer = Beer.find(params.expect(:id))
+  end
 
-    # Only allow a list of trusted parameters through.
-    def beer_params
-      params.expect(beer: [ :name, :style, :brewery_id ])
-    end
+  # Unohdin että tein tehtävän 10 myös
+  # kun aloin korjailemaan testejä
+  def set_brewery_and_styles
+    @breweries = Brewery.all
+    @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter", "Lowalcohol", "NEIPA"]
+  end
+
+  # Only allow a list of trusted parameters through.
+  def beer_params
+    params.expect(beer: [:name, :style, :brewery_id])
+  end
 end

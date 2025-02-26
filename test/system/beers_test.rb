@@ -3,11 +3,12 @@ require "application_system_test_case"
 class BeersTest < ApplicationSystemTestCase
   setup do
     @beer = beers(:one)
-    @secondBeer = beers(:two)
+    @second_beer = beers(:two)
   end
 
   test "visiting the index" do
     visit beers_url
+
     assert_selector "h1", text: "Beers"
   end
 
@@ -28,9 +29,9 @@ class BeersTest < ApplicationSystemTestCase
     visit beer_url(@beer)
     click_on "Edit this beer", match: :first
 
-    fill_in "Name", with: @secondBeer.name
+    fill_in "Name", with: @second_beer.name
     select @beer.brewery.name, from: "Brewery"
-    select @secondBeer.style, from: "Style"
+    select @second_beer.style, from: "Style"
     click_on "Update Beer"
 
     assert_text "Beer was successfully updated"

@@ -5,22 +5,21 @@ class Brewery < ApplicationRecord
   include RatingAverage
 
   def print_report
-    puts name
-    puts "established at year #{year}"
-    puts "number of beers #{beers.count}"
+    config.logger name
+    config.logger "established at year #{year}"
+    config.logger "number of beers #{beers.count}"
   end
 
   def restart
     # Kutsuu olion omaa year metodia
     self.year = 2022
-    puts "changed year to #{year}"
+    config.logger "changed year to #{year}"
   end
 
   def average_rating
-    @ratings = self.ratings
+    @ratings = ratings
     calculate_average
   end
-
 
   # Defaultit getterit ja setterit näyttävät
   # suurinpiirtein tältä

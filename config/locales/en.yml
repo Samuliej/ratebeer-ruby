@@ -29,3 +29,8 @@
 
 en:
   hello: "Hello world"
+  notices:
+    brewery_created: "Brewery was successfully created."
+    brewery_updated: "Brewery was successfully updated."
+    brewery_destroyed: "Brewery was successfully destroyed."
+
