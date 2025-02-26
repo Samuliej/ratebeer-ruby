@@ -33,4 +33,8 @@ class BreweriesTest < ApplicationSystemTestCase
     assert_text "Brewery was successfully updated"
     click_on "Back"
   end
+
+  test "this will fail the tests" do
+    assert true == false
+  end
 end
