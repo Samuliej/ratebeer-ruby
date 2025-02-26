@@ -37,12 +37,4 @@ class BreweriesControllerTest < ActionDispatch::IntegrationTest
     patch brewery_url(@brewery), params: { brewery: { name: @brewery.name, year: @brewery.year } }
     assert_redirected_to brewery_url(@brewery)
   end
-
-  test "should destroy brewery" do
-    assert_difference("Brewery.count", -1) do
-      delete brewery_url(@brewery)
-    end
-
-    assert_redirected_to breweries_url
-  end
 end

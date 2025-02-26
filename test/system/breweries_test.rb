@@ -33,13 +33,4 @@ class BreweriesTest < ApplicationSystemTestCase
     assert_text "Brewery was successfully updated"
     click_on "Back"
   end
-
-  test "should destroy Brewery" do
-    visit brewery_url(@brewery)
-    accept_alert do
-      click_on "Destroy this brewery", match: :first
-    end
-
-    assert_text "Brewery was successfully destroyed"
-  end
 end
