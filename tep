@@ -1,0 +1,21 @@
+
+[1mFrom:[0m /home/saeijoto/.local/share/mise/installs/ruby/3.4.1/lib/ruby/gems/3.4.0/gems/rack-3.1.10/lib/rack/utils.rb:590 Rack::Utils.status_code:
+
+    [1;34m589[0m: [32mdef[0m [1;34mstatus_code[0m(status)
+ => [1;34m590[0m:   [32mif[0m status.is_a?([1;34;4mSymbol[0m)
+    [1;34m591[0m:     [1;34;4mSYMBOL_TO_STATUS_CODE[0m.fetch(status) [32mdo[0m
+    [1;34m592[0m:       fallback_code = [1;34;4mOBSOLETE_SYMBOLS_TO_STATUS_CODES[0m.fetch(status) { raise [1;34;4mArgumentError[0m, [31m[1;31m"[0m[31mUnrecognized status code #{status.inspect}[0m[31m[1;31m"[0m[31m[0m }
+    [1;34m593[0m:       message = [31m[1;31m"[0m[31mStatus code #{status.inspect}[0m[31m is deprecated and will be removed in a future version of Rack.[1;31m"[0m[31m[0m
+    [1;34m594[0m:       [32mif[0m canonical_symbol = [1;34;4mOBSOLETE_SYMBOL_MAPPINGS[0m[status]
+    [1;34m595[0m:         [1;34m# message = "#{message} Please use #{canonical_symbol.inspect} instead."[0m
+    [1;34m596[0m:         [1;34m# For now, let's not emit any warning when there is a mapping.[0m
+    [1;34m597[0m:       [32melse[0m
+    [1;34m598[0m:         warn message, [35muplevel[0m: [1;34m3[0m
+    [1;34m599[0m:       [32mend[0m
+    [1;34m600[0m:       fallback_code
+    [1;34m601[0m:     [32mend[0m
+    [1;34m602[0m:   [32melse[0m
+    [1;34m603[0m:     status.to_i
+    [1;34m604[0m:   [32mend[0m
+    [1;34m605[0m: [32mend[0m
+
