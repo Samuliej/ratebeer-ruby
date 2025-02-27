@@ -24,7 +24,6 @@
   </head>
 
   <body>
-    <!-- kaukaa viisas -->
     <header>
       <div class="navibar">
         <ul>
@@ -35,15 +34,36 @@
             <%= link_to 'beers', beers_path %>            
           </li>
           <li>
+            <%= link_to 'users', users_path %>
+          </li>
+          <li>
             <%= link_to 'ratings', ratings_path %>
           </li>
+          <% if current_user %>
+            <li>
+              <%= link_to 'new rating', new_rating_path %>
+            </li>
+          <% end %>
+        </ul>
+        <ul>
+          <% if not current_user %>
+            <li>
+              <%= link_to 'sign up', new_user_path %>
+            </li>
+            <li>
+                <%= link_to 'sign in', new_session_path %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to current_user.username, current_user %>
+            </li>
+            <li>
+              <%= link_to 'sign out', session_path, data: { "turbo-method": :delete }, class: "link-secondary smooth" %>
+            </li>
+          <% end %>
         </ul>
       </div>
     </header>
-
-    <% if not session[:user_id].nil? %>
-      <p><%= User.find(session[:user_id]).username %> signed in</p>
-    <% end %>
 
     <!-- Yield elementin kohdalle rendoröityy näkymätemplaten määrittelemä sisältö -->
     <%= yield %>
