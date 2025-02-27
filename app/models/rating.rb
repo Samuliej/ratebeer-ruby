@@ -5,7 +5,8 @@ class Rating < ApplicationRecord
     logger.info "#{beer.name} #{score}"
   end
 
+  # Palauttaa merkkijonon jossa oluen nimi ja reittaus
   def to_s
-    logger.info "#{beer.name} #{score}"
+    "#{beer.name} #{score}"
   end
 end

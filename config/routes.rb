@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :users
   resources :beers
   resources :breweries
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -17,5 +18,11 @@ Rails.application.routes.draw do
   # Ohjaa juureen tulevat pyynnöt panimoiden sivulle
   root "breweries#index"
 
+  # Lisätään vaihtoehtoinen reitti käyttäjän luomiseen
+  get 'signup', to: 'users#new'
+
   resources :ratings, only: [ :index, :new, :create, :destroy ]
+
+  # Yksikössä, eli esimerkiksi kirjautumissivun osoite on nyt session/new
+  resource :session, only: [:new, :create, :destroy]
 end
