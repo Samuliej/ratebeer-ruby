@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
   # Lisätään vaihtoehtoinen reitti käyttäjän luomiseen
   get 'signup', to: 'users#new'
+  get 'signin', to: 'session#new'
 
   resources :ratings, only: [ :index, :new, :create, :destroy ]
 

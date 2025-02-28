@@ -10,11 +10,12 @@ class UsersTest < ApplicationSystemTestCase
     assert_selector "h1", text: "Users"
   end
 
-  test "should create user" do
+  test "should create a new user" do
+    unique_username = "UniikkiNimi"
     visit users_url
     click_on "New user"
 
-    fill_in "Username", with: @user.username
+    fill_in "Username", with: unique_username
     click_on "Create User"
 
     assert_text "User was successfully created"

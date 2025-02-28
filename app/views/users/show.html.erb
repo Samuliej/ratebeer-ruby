@@ -14,7 +14,6 @@
 <ul>
   <% @user.ratings.each do |rating| %>
     <li>
-      <!-- Samalla tein myös Tehtävän 6 -->
       <%= rating.to_s %> 
       <% if rating.user.id == current_user.id %>
         <%= link_to 'Delete', rating, data: { "turbo-method": :delete, "turbo-confirm": 'Are you sure?' }, class: "link-secondary smooth" %>

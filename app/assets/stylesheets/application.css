@@ -35,3 +35,13 @@
 .rating-list li button {
     margin-left: 5px;
 }
+
+.error_explanation {
+    color: red;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}

@@ -7,6 +7,8 @@ class Beer < ApplicationRecord
   has_many :ratings, dependent: :destroy
   include RatingAverage
 
+  validates :name, presence: true
+
   def average_rating
     @ratings = ratings
     calculate_average

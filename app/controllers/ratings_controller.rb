@@ -16,17 +16,27 @@ class RatingsController < ApplicationController
   end
 
   def create
-    rating = Rating.create params.require(:rating).permit(:score, :beer_id)
-    rating.user = current_user
-    # Tallennetaan muutokset tietokantaan
-    rating.save
+    @rating = Rating.new rating_params
+    @rating.user = current_user
 
-    redirect_to ratings_path
+    if @rating.save
+      redirect_to user_path current_user
+    else
+      @beers = Beer.all
+      # Rails 7 ei renderöi erroreita, ellei palauta myös symbolia :unprocessable_entity
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def destroy
-    rating = Rating.find(params[:id])
-    rating.delete
+    @rating = Rating.find(params[:id])
+    @rating.delete
     redirect_to ratings_path
+  end
+
+  private
+
+  def rating_params
+    params.expect(rating: [:score, :beer_id])
   end
 end

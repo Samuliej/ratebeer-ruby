@@ -21,11 +21,14 @@ class UsersController < ApplicationController
 
   # POST /users or /users.json
   def create
+    # sama kuin @user = User.new(params.require(:user).permit(:username))
     @user = User.new(user_params)
 
     respond_to do |format|
       if @user.save
+        # Vastausta odotetaan HTML muodossa
         format.html { redirect_to @user, notice: "User was successfully created." }
+        # Vastausta odotetaan JSON muodossa, eli pyyntö tehty vaikka toiselta sivulta JavaScriptillä
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new, status: :unprocessable_entity }
