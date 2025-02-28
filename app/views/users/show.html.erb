@@ -5,10 +5,12 @@
   <%= @user.username %>
 </p>
 
-<p>
-  Has made <%= pluralize(@user.ratings.count, "rating") %>, average rating <%= @user.average_rating %>
-</p>
-
+<% if @user.ratings.empty? %>
+  <p>Has not rated any beers yet.</p>
+<% else %>
+  <p>Has made <%= pluralize(@user.ratings.count, "rating") %>, average rating <%= @user.average_rating %></p>
+<% end %>
+    
 <ul>
   <% @user.ratings.each do |rating| %>
     <li>
