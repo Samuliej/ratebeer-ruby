@@ -1,5 +1,6 @@
 class Rating < ApplicationRecord
   belongs_to :beer
+  belongs_to :user
 
   def print
     logger.info "#{beer.name} #{score}"
