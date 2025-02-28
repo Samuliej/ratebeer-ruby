@@ -8,6 +8,7 @@
     <% @ratings.each do |rating| %>
         <li> 
             <%= render rating %> 
+            <!-- Samalla tein myös Tehtävän 6 -->
             <%= link_to rating.user.username, rating.user %>
         </li>
     <% end %>
