@@ -14,7 +14,10 @@
 <ul>
   <% @user.ratings.each do |rating| %>
     <li>
-      <%= rating.to_s %> <%= link_to 'Delete', rating, data: { "turbo-method": :delete, "turbo-confirm": 'Are you sure?' }, class: "link-secondary smooth" %>
+      <%= rating.to_s %> 
+      <% if rating.user.id == current_user.id %>
+        <%= link_to 'Delete', rating, data: { "turbo-method": :delete, "turbo-confirm": 'Are you sure?' }, class: "link-secondary smooth" %>
+      <% end %>
     </li>
   <% end %>
 </ul>
