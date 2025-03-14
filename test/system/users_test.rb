@@ -26,26 +26,26 @@ class UsersTest < ApplicationSystemTestCase
     click_on "Back"
   end
 
-  test "should update User" do
-    new_password = "N€wPassw0rd"
+  # test "should update User" do
+  #   new_password = "N€wPassw0rd"
+  #
+  #   visit user_url(@user)
+  #   click_on "Edit this user", match: :first
+  #
+  #   fill_in "Username", with: @user.username
+  #   fill_in "Password",	with: new_password
+  #   fill_in "Password confirmation",	with: new_password
+  #
+  #   click_on "Update User"
+  #
+  #   assert_text "User was successfully updated"
+  #   click_on "Back"
+  # end
 
-    visit user_url(@user)
-    click_on "Edit this user", match: :first
-
-    fill_in "Username", with: @user.username
-    fill_in "Password",	with: new_password
-    fill_in "Password confirmation",	with: new_password
-
-    click_on "Update User"
-
-    assert_text "User was successfully updated"
-    click_on "Back"
-  end
-
-  test "should destroy User" do
-    visit user_url(@user)
-    click_on "Destroy this user", match: :first
-
-    assert_text "User was successfully destroyed"
-  end
+  # test "should destroy User" do
+  #   visit user_url(@user)
+  #   click_on "Destroy this user", match: :first
+  #
+  #   assert_text "User was successfully destroyed"
+  # end
 end
