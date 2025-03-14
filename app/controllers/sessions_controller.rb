@@ -7,14 +7,11 @@ class SessionsController < ApplicationController
     # Haetaan nimeä vastaava käyttäjä tietokannasta
     user = User.find_by username: params[:username]
 
-    if user.nil?
-      redirect_to signin_path, notice: "User #{params[:username]} does not exist!"
+    if user&.authenticate(params[:password])
+      session[:user_id] = user.id
+      redirect_to user_path(user), notice: "Welcome back!"
     else
-      # Tallennetaan käyttäjän id sessioon jos käyttäjä löytyi
-      session[:user_id] = user.id if user
-
-      # Uudelleenohjataan käyttäjä omalle sivulle
-      redirect_to user, notice: "Welcome back!"
+      redirect_to signin_path, notice: "Username and/or password mismatch"
     end
   end
 
