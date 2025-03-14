@@ -17,9 +17,11 @@
     </div>
   <% end %>
 
+  <!-- Only show the clubs that the user is not a member of -->
+  <% available_clubs = @beer_clubs.reject { |club|  current_user.beer_clubs.include? club } %>
   <div class="form-group">
-    <%= f.label :beer_club_id, "BeerClub" %>
-    <%= f.select :beer_club_id, options_from_collection_for_select(@beer_clubs, :id, :to_s) %>
+      <%= f.label :beer_club_id, "BeerClub" %>
+      <%= f.select :beer_club_id, options_from_collection_for_select(available_clubs, :id, :to_s) %>
   </div>
 
   <%= f.submit "Join beer club" %>
