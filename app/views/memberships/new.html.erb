@@ -1,0 +1,31 @@
+<% content_for :title, "New membership" %>
+
+<h1>Join a Beer Club</h1>
+
+<%= form_for(@membership) do  |f| %>
+  <% if @membership.errors.any? %>
+    <div class="error_explanation">
+      <h2><%= pluralize(@membership.errors.count, "error") %> prohibited membership from being saved:</h2>
+
+      <ul>
+        <% @membership.errors.full_messages.each do |msg| %>
+          <li>
+            <%= msg %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :beer_club_id, "BeerClub" %>
+    <%= f.select :beer_club_id, options_from_collection_for_select(@beer_clubs, :id, :to_s) %>
+  </div>
+
+  <%= f.submit "Join beer club" %>
+<% end %>
+
+
+<div>
+  <%= link_to "Back to memberships", memberships_path %>
+</div>
