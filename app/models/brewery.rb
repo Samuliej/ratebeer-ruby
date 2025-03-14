@@ -1,14 +1,14 @@
 class Brewery < ApplicationRecord
+  MINIMUM_YEAR = 1040
+
   has_many :beers, dependent: :destroy
   # Asetetaan assosiaatio ratingeille oluiden kautta
   has_many :ratings, through: :beers
   include RatingAverage
 
   validates :name, presence: true
-  validates :year, presence: true, numericality: { greater_than_or_equal_to: 1040,
-                                                   less_than_or_equal_to: 2022,
-                                                   only_integer: true }
-
+  validates :year, presence: true
+  validate :validate_year
   def print_report
     config.logger name
     config.logger "established at year #{year}"
@@ -35,4 +35,18 @@ class Brewery < ApplicationRecord
   # def year=(value)
   #   write_attribute(:year, value)
   # end
+
+  private
+
+  def validate_year
+    return if year.blank?
+
+    if year < MINIMUM_YEAR
+      errors.add(:year, " can't be smaller than #{MINIMUM_YEAR}")
+    end
+
+    return unless year > Time.now.year
+
+    errors.add(:year, " can't be greater than current year")
+  end
 end
