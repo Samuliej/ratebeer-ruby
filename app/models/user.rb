@@ -36,6 +36,11 @@ class User < ApplicationRecord
   private
 
   def validate_password
+    if password.nil? || password.empty?
+      errors.add(:password, "can't be empty")
+      return false
+    end
+
     if password.length < MINIMUM_PASSWORD_LENGTH
       errors.add(:password, " must be #{MINIMUM_PASSWORD_LENGTH} characters or more.")
     end
