@@ -33,6 +33,12 @@ class User < ApplicationRecord
     calculate_average
   end
 
+  def favorite_beer
+    return nil if ratings.empty?
+
+    ratings.order(score: :desc).limit(1).first.beer
+  end
+
   private
 
   def validate_password

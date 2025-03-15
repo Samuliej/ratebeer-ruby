@@ -35,9 +35,7 @@ RSpec.describe User, type: :model do
   describe "with a proper password" do
     # Let metodin jälkeen user muuttujaan voidaan viitata normaalisti describe
     # lohkon sisällä
-    let(:user) { User.create username: "Pekka", password: "S€cr3t", password_confirmation: "S€cr3t" }
-    let(:test_brewery) { Brewery.new name: "Test Brewery", year: 2000 }
-    let(:test_beer) { Beer.create name: "Test Beer", style: "Test Style", brewery: test_brewery }
+    let(:user) { FactoryBot.create(:user) }
 
     it "is saved" do
       expect(user).to be_valid
@@ -45,14 +43,51 @@ RSpec.describe User, type: :model do
     end
 
     it "and with two ratings, has the correct average rating" do
-      rating = Rating.new score: 10, beer: test_beer
-      rating2 = Rating.new score: 20, beer: test_beer
-
-      user.ratings << rating
-      user.ratings << rating2
+      FactoryBot.create(:rating, score: 10, user: user)
+      FactoryBot.create(:rating, score: 20, user: user)
 
       expect(user.ratings.count).to eq 2
       expect(user.average_rating).to eq 15.0
     end
+  end
+
+  describe "favorite beer" do
+    let(:user) { FactoryBot.create(:user) }
+
+    it "has method for determining the favorite_beer" do
+      expect(user).to respond_to(:favorite_beer)
+    end
+
+    it "without ratings does not have a favorite beer" do
+      expect(user.favorite_beer).to eq nil
+    end
+
+    it "is the only rated if only one rating" do
+      beer = create_beer_with_rating( { user: user }, 20)
+
+      expect(user.favorite_beer).to eq beer
+    end
+
+    it "is the one with highest rating if several rated" do
+      create_beers_with_many_ratings({user: user}, 10, 20, 15)
+      best = create_beer_with_rating({ user: user }, 25 )
+
+
+      expect(user.favorite_beer).to eq(best)
+    end
+  end
+end
+
+def create_beer_with_rating(object, score)
+  beer = FactoryBot.create(:beer)
+  FactoryBot.create(:rating, beer: beer, score: score, user: object[:user] )
+  beer
+end
+
+# Rubyssa *scores * on splat operator, sallii metodin
+# ottaa vastaan vaihtelevan määrän argumentteja taulukkona
+def create_beers_with_many_ratings(object, *scores)
+  scores.each do  |score|
+    create_beer_with_rating(object, score)
   end
 end
