@@ -33,14 +33,24 @@ class User < ApplicationRecord
     calculate_average
   end
 
+  # Laskee käyttäjän lempioluen
+  # @return Beer
   def favorite_beer
     return nil if ratings.empty?
 
     ratings.order(score: :desc).limit(1).first.beer
   end
 
+  # Laskee käyttäjän lempiolut tyylin
+  # @return String
   def favorite_style
-    calculate_best_rated_beer_style unless ratings.empty?
+    calculate_favorite_beer_style unless ratings.empty?
+  end
+
+  # Laskee käyttäjän suosikkipanimon
+  # @return Brewery
+  def favorite_brewery
+    calculate_favorite_brewery unless ratings.empty?
   end
 
   private
@@ -48,32 +58,59 @@ class User < ApplicationRecord
   # Lasketaan käyttäjän eniten arvostelema olut, josta päätellään
   # suosikkioluen tyyli.
   # @return String
-  def calculate_best_rated_beer_style
+  def calculate_favorite_beer_style
     # Erottaa oluet tyylin mukaan
-    styles_hash = group_ratings_by_style
+    styles_hash = group_ratings_by_beer_attribute(:style)
     # Summaa jokaisen tyylin oluen ratingin, sekä tekee niistä taulukollisen
     # hashmappeja, josta selviää millä tyylillä mikä yhteinen score
-    styles_with_summed_ratings = sum_style_ratings(styles_hash)
+    styles_with_summed_ratings = sum_ratings_score_by_beer_attribute(styles_hash, :style)
     # Palautetaan näistä se tyyli, jolla summattu score on suurin
     styles_with_summed_ratings.max_by{ |k| k[:rating] }[:style]
   end
 
-  # Palauttaa hashmapin Ratingeista ryhmitettynä tyylin alle
-  # @return Hash{ String => Rating }
-  def group_ratings_by_style
-    ratings.group_by { |r| r.beer.style }
+  # Lasketaan käyttäjän suosikkipanimo
+  # @return Brewery
+  def calculate_favorite_brewery
+    breweries_hash = group_ratings_by_beer_attribute(:brewery)
+    breweries_with_summed_ratings = sum_ratings_score_by_beer_attribute(breweries_hash, :brewery)
+    breweries_with_summed_ratings.max_by{ |k| k[:rating] }[:brewery]
   end
 
-  # @param [Hash{String => Rating}] styles_hash Hash, jossa avaimina ovat oluttyylit
-  #   (esim. "IPA", "Stout") ja arvoina `Rating`-oliot, jotka sisältävät oluen arvostelut.
-  # @return [Hash{String => Integer}] Hash, jossa avaimina ovat oluttyylit ja arvoina niiden kokonaisratingit.
-  #   Esim: { "IPA" => 85, "Stout" => 92 }
+  # Palauttaa hashmapin Ratingeista ryhmitettynä haluaman avaimen alle
+  # esim:
+  # @return Hash{ String => [ Rating ] }
+  # tai
+  # @return Hash{ Brewery => [ Rating } }
+  def group_ratings_by_beer_attribute(key)
+    beer = ratings.first.beer
+    ratings.group_by { |r| r.beer.send(key) } if beer.respond_to?(key)
+  end
 
-  def sum_style_ratings(styles_hash)
-    styles_hash.keys.map do |key|
-      ratings = styles_hash[key].map(&:score)
+  # Laskee yhteen oluttyylien tai panimoiden arvostelupisteet annetusta hashista.
+  # Toimii myös tulevaisuudessa muillakin.
+  #
+  # @param [Hash{String, Brewery => Array<Rating>}] hash
+  #   Hash, jossa avaimina ovat joko oluttyylit (String) tai panimo-oliot (Brewery),
+  #   ja arvoina ovat taulukot `Rating`-olioita, jotka sisältävät pisteet.
+  # @param [Symbol] output_key
+  #   Avaimen nimi, jota käytetään palautetussa hashissa (esim. `:style` tai `:brewery`).
+  # @return [Array<Hash{Symbol => String, :rating => Integer}>]
+  #   Taulukko hasheja, joissa on annettu avain (`output_key`) ja yhteenlasketut pisteet.
+  #   Esimerkiksi:
+  #   [
+  #     { style: "IPA", rating: 85 },
+  #     { style: "Stout", rating: 92 }
+  #   ]
+  #   Tai:
+  #   [
+  #     { brewery: <Brewery name: "Hyvä panimo" ...>, rating: 90 },
+  #     { brewery: <Brewery name: "Toinen panimo" ...>, rating: 100 }
+  #   ]
+  def sum_ratings_score_by_beer_attribute(hash, output_key)
+    hash.keys.map do |key|
+      ratings = hash[key].map(&:score)
       total_rating = ratings.sum
-      { style: key, rating: total_rating }
+      { output_key => key, rating: total_rating }
     end
   end
 

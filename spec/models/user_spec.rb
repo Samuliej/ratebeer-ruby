@@ -103,12 +103,57 @@ RSpec.describe User, type: :model do
       expect(user.favorite_style).to eq best_style
     end
   end
+
+  describe "favorite brewery" do
+    let(:user) { FactoryBot.create(:user) }
+    let(:brewery) { FactoryBot.create(:brewery, name: "Awesome brewery") }
+    let(:brewery2) { FactoryBot.create(:brewery, name: "Not so awesome brewery") }
+    let(:brewery3) { FactoryBot.create(:brewery, name: "Adequate brewery") }
+    let(:brewery4) { FactoryBot.create(:brewery, name: "just another brewery") }
+
+    it "has method for determining the favorite_brewery" do
+      expect(user).to respond_to(:favorite_brewery)
+    end
+
+    it "without ratings does not have a favorite brewery" do
+      expect(user.favorite_brewery).to eq nil
+    end
+
+    it "is the brewery of the only rated beer if only one rating" do
+      beer = create_beer_under_specified_brewery_with_rating({ user: user }, 20, "Lager", brewery)
+
+      expect(user.favorite_brewery.name).to eq beer.brewery.name
+    end
+
+    it "is the brewery of the beer/beers with overall highest rating if several rated" do
+      best_brewery = brewery
+
+      create_beers_under_specified_brewery_with_rating({ user: user }, 10, 15, 10, 22, 43, "Lager", brewery2)
+      create_beers_under_specified_brewery_with_rating( { user: user }, 10, 10, 5, 3, 2, 5, 10, "IPA", brewery4)
+      create_beers_under_specified_brewery_with_rating({ user: user }, 40, 45, 10, 22, 43, "Lager", brewery)
+      create_beers_under_specified_brewery_with_rating({ user: user }, 40, 45, 10, 22, 42, "Lager", brewery3)
+
+      expect(user.favorite_brewery.name).to eq best_brewery.name
+    end
+  end
 end
 
 def create_beer_with_rating(object, score, style = "teststyle")
   beer = FactoryBot.create(:beer, style: style)
   FactoryBot.create(:rating, beer: beer, score: score, user: object[:user] )
   beer
+end
+
+def create_beer_under_specified_brewery_with_rating(object, score, style, brewery)
+  beer = FactoryBot.create(:beer, style: style, brewery: brewery)
+  FactoryBot.create(:rating, beer: beer, score: score, user: object[:user] )
+  beer
+end
+
+def create_beers_under_specified_brewery_with_rating(object, *scores, style, brewery)
+  scores.each do |score|
+    create_beer_under_specified_brewery_with_rating(object, score, style, brewery)
+  end
 end
 
 # Rubyssa *scores * on splat operator, sallii metodin
