@@ -5,11 +5,12 @@
 <% if @user.ratings.empty? %>
   <p>Has not rated any beers yet.</p>
 <% else %>
+  <p><%= @user.username %>'s favorite beer style is: <%= @user.favorite_style %></p>
   <p>Has made <%= pluralize(@user.ratings.count, "rating") %>, average rating <%= @user.average_rating %></p>
 <% end %>
 
 <% if @user.beer_clubs.empty? %>
-  <p>User has not joined any beer clubs yet</p>
+  <p><%= @user.username %> has not joined any beer clubs yet</p>
 <% else %>
   <h3>Member of</h3>
 

@@ -39,7 +39,44 @@ class User < ApplicationRecord
     ratings.order(score: :desc).limit(1).first.beer
   end
 
+  def favorite_style
+    calculate_best_rated_beer_style unless ratings.empty?
+  end
+
   private
+
+  # Lasketaan käyttäjän eniten arvostelema olut, josta päätellään
+  # suosikkioluen tyyli.
+  # @return String
+  def calculate_best_rated_beer_style
+    # Erottaa oluet tyylin mukaan
+    styles_hash = group_ratings_by_style
+    # Summaa jokaisen tyylin oluen ratingin, sekä tekee niistä taulukollisen
+    # hashmappeja, josta selviää millä tyylillä mikä yhteinen score
+    styles_with_summed_ratings = sum_style_ratings(styles_hash)
+    # Palautetaan näistä se tyyli, jolla summattu score on suurin
+    styles_with_summed_ratings.max_by{ |k| k[:rating] }[:style]
+  end
+
+  # Palauttaa hashmapin Ratingeista ryhmitettynä tyylin alle
+  # @return Hash{ String => Rating }
+  def group_ratings_by_style
+    ratings.group_by { |r| r.beer.style }
+  end
+
+  # @param [Hash{String => Rating}] styles_hash Hash, jossa avaimina ovat oluttyylit
+  #   (esim. "IPA", "Stout") ja arvoina `Rating`-oliot, jotka sisältävät oluen arvostelut.
+  # @return [Hash{String => Integer}] Hash, jossa avaimina ovat oluttyylit ja arvoina niiden kokonaisratingit.
+  #   Esim: { "IPA" => 85, "Stout" => 92 }
+
+
+  def sum_style_ratings(styles_hash)
+    styles_hash.keys.map do |key|
+      ratings = styles_hash[key].map(&:score)
+      total_rating = ratings.sum
+      { style: key, rating: total_rating }
+    end
+  end
 
   def validate_password
     if password.nil? || password.empty?
