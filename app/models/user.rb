@@ -69,7 +69,6 @@ class User < ApplicationRecord
   # @return [Hash{String => Integer}] Hash, jossa avaimina ovat oluttyylit ja arvoina niiden kokonaisratingit.
   #   Esim: { "IPA" => 85, "Stout" => 92 }
 
-
   def sum_style_ratings(styles_hash)
     styles_hash.keys.map do |key|
       ratings = styles_hash[key].map(&:score)
