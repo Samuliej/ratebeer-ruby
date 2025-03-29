@@ -5,6 +5,8 @@ class Brewery < ApplicationRecord
   # Asetetaan assosiaatio ratingeille oluiden kautta
   has_many :ratings, through: :beers
   include RatingAverage
+  include YearValidatable
+  year_attribute :year
 
   validates :name, presence: true
   validates :year, presence: true
@@ -24,29 +26,5 @@ class Brewery < ApplicationRecord
   def average_rating
     @ratings = ratings
     calculate_average
-  end
-
-  # Defaultit getterit ja setterit näyttävät
-  # suurinpiirtein tältä
-  # def year
-  #   read_attribute(:year)
-  # end
-  #
-  # def year=(value)
-  #   write_attribute(:year, value)
-  # end
-
-  private
-
-  def validate_year
-    return if year.blank?
-
-    if year < MINIMUM_YEAR
-      errors.add(:year, " can't be smaller than #{MINIMUM_YEAR}")
-    end
-
-    return unless year > Time.now.year
-
-    errors.add(:year, " can't be greater than current year")
   end
 end

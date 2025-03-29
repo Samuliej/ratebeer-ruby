@@ -63,6 +63,7 @@ group :test do
   gem "factory_bot_rails"
   gem "webdrivers"
   gem "launchy"
+  gem "simplecov", require: false
 end
 
 group :development, :test do

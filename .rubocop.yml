@@ -76,3 +76,6 @@ Layout/IndentationStyle:
 Metrics/MethodLength:
   Enabled: true
   Max: 15
+
+Naming/AccessorMethodName:
+  Enabled: false

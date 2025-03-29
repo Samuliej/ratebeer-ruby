@@ -6,7 +6,6 @@ describe "Breweries page" do
     expect(page).to have_content "Breweries"
     expect(page).to have_content "Number of breweries: 0"
     expect(page).to have_content "New brewery"
-    save_page
   end
 
   describe "when breweries exist" do

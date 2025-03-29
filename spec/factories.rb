@@ -21,4 +21,15 @@ FactoryBot.define do
     beer
     user
   end
+
+  factory :beer_club do
+    name { "club anonymous" }
+    founded { 1959 }
+    city { "anocity" }
+  end
+
+  factory :membership do
+    beer_club
+    user
+  end
 end
