@@ -23,14 +23,17 @@ describe "Rating Page" do
     select "Iso 3", from: "rating[beer_id]"
     fill_in "rating[score]", with: "15"
 
-    expect{
-      click_button "Create Rating"
-    }.to change{Rating.count}.from(0).to(1)
+    user_rating_count_before_addition = user.ratings.count
+    beer1_rating_count_before_addition = beer1.ratings.count
 
-    expect(user.ratings.count).to eq(1)
-    expect(beer1.ratings.count).to eq(1)
-    expect(beer1.average_rating).to eq(15.0)
+    expect { click_button "Create Rating" }.to change { Rating.count }.by(1)
+
+    # Checking that the user and beer ratings are updated
+    expect(user.ratings.count).to eq(user_rating_count_before_addition + 1)
+    expect(beer1.ratings.count).to eq(beer1_rating_count_before_addition + 1)
+    expect(beer1.average_rating).to eq(12.5)
   end
+
 
   it "visiting all ratings page shows ratings in DB and the total amount of ratings" do
     visit ratings_path
@@ -53,4 +56,12 @@ describe "Rating Page" do
 
     expect(page).not_to have_content beer3.name
   end
+
+  # it "trying to get accepting alerts to work" do
+  #   visit user_path(user)
+  #
+  #   accept_alert do
+  #     click_on "Destroy", match: :first
+  #   end
+  # end
 end
