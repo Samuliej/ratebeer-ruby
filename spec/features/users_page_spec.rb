@@ -37,12 +37,14 @@ describe "Users page" do
       let!(:rating2) { FactoryBot.create :rating, beer: beer2, user: user }
       let!(:rating2) { FactoryBot.create :rating, beer: beer3, user: user }
 
+      # Lisätty
       it "can see his favorite style" do
         sign_in username: "Ukko", password: "F00bar%"
         visit user_path(user)
         expect(page).to have_content "#{user.username}'s favorite beer style is Lager"
       end
 
+      # Lisätty
       it "can see his favorite brewery" do
         sign_in username: "Ukko", password: "F00bar%"
         visit user_path(user)
