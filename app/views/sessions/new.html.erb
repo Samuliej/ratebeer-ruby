@@ -1,14 +1,16 @@
-<h1>Sign in</h1>
+<div class="centered-page-container">
+  <h1>Sign in</h1>
 
-<p style="color: red"><%= notice %></p>
+  <p style="color: red"><%= notice %></p>
 
-<%= form_with url: session_path, method: :post do |form| %>
+  <%= form_with url: session_path, method: :post do |form| %>
     <div>
-        <%= form.text_field :username %>
+      <%= form.text_field :username %>
     </div>
     <div>
-        <%= form.password_field :password %>
+      <%= form.password_field :password %>
     </div>
-    
+
     <%= form.submit "Log in" %>
-<% end %>
+  <% end %>
+</div>

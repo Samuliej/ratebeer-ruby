@@ -4,6 +4,7 @@
     border-radius: 3px;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .navibar ul {
@@ -21,6 +22,10 @@
     padding: 2px;
     border-radius: 3px;
     text-decoration: none;
+}
+
+.navibar li .active {
+    text-decoration: underline;
 }
 
 .navibar li a:hover {
@@ -44,4 +49,23 @@
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+}
+
+.centered-page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 0 0.5em 0 0.5em;
+    margin-bottom: 1em;
+    box-shadow: 5px 5px 2px 1px rgba(78, 78, 90, 0.2);
+}
+
+.users-container {
+    padding: 2em;
 }

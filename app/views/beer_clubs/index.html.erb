@@ -1,13 +1,15 @@
 <p style="color: green"><%= notice %></p>
 
-<% content_for :title, "Beer clubs" %>
+<div class="centered-page-container">
+  <% content_for :title, "Beer clubs" %>
 
-<h1>Beer clubs</h1>
+  <h1>Beer clubs</h1>
 
-<%= link_to "New beer club", new_beer_club_path if current_user %>
+  <%= link_to "New beer club", new_beer_club_path if current_user %>
 
-<div id="beer_clubs">
-  <% @beer_clubs.each do |beer_club| %>
-    <%= render beer_club %>
-  <% end %>
+  <div id="beer_clubs">
+    <% @beer_clubs.each do |beer_club| %>
+      <%= render beer_club %>
+    <% end %>
+  </div>
 </div>

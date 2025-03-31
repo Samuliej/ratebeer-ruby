@@ -1,15 +1,17 @@
 <p style="color: green"><%= notice %></p>
 
-<% content_for :title, "Beers" %>
+<div class="centered-page-container">
+  <% content_for :title, "Beers" %>
 
-<h1>Beers</h1>
+  <h1>Beers</h1>
 
-<p>Number of beers: <%= @beers.count %></p>
+  <p>Number of beers: <%= @beers.count %></p>
 
-<%= link_to('New beer', new_beer_path) if current_user %>
+  <%= link_to('New beer', new_beer_path) if current_user %>
 
-<div id="beers">
-  <% @beers.each do |beer| %>
-    <%= render beer %>
-  <% end %>
+  <div id="beers">
+    <% @beers.each do |beer| %>
+      <%= render beer %>
+    <% end %>
+  </div>
 </div>

@@ -1,15 +1,17 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Breweries</h1>
+<div class="centered-page-container">
+    <h1>Breweries</h1>
 
-<p>Number of breweries: <%= @breweries.count %></p>
+    <p>Number of breweries: <%= @breweries.count %></p>
 
-<%= link_to "New brewery", new_brewery_path if current_user %>
+    <%= link_to "New brewery", new_brewery_path if current_user %>
 
-<div id="breweries">
-  <% @breweries.each do |brewery| %>
-    <div id=<%= dom_id brewery %>>
-      <%= render brewery %>
+    <div id="breweries">
+      <% @breweries.each do |brewery| %>
+        <div id=<%= dom_id brewery %>>
+          <%= render brewery %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
 </div>

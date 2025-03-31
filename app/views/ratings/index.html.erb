@@ -1,16 +1,18 @@
+<div class="centered-page-container">
 <h2>List of ratings</h2>
 
-<p>Ratings count: <%= @ratings.count %></p>
+  <p>Ratings count: <%= @ratings.count %></p>
 
-<% if current_user %>
-  <%= link_to 'Create a new rating', new_rating_path %>
-<% end %>
+  <% if current_user %>
+    <%= link_to 'Create a new rating', new_rating_path %>
+  <% end %>
 
-<ul class="rating-list">
+  <ul class="rating-list">
     <% @ratings.each do |rating| %>
-        <li> 
-            <%= render rating %> 
-            <%= link_to rating.user.username, rating.user %>
-        </li>
+      <li>
+        <%= render rating %>
+        <%= link_to rating.user.username, rating.user %>
+      </li>
     <% end %>
-</ul>
+  </ul>
+</div>
