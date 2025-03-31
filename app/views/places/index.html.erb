@@ -1,0 +1,23 @@
+
+<div class="centered-page-container">
+  <h1>Beer places search</h1>
+
+  <p style="color: red"><%= notice %></p>
+
+  <%= form_with url: places_path, method: :post do |form| %>
+  city <%= form.text_field :city %>
+  <%= form.submit "Search" %>
+  <% end %>
+
+  <% if @places %>
+    <% @places.each do |place| %>
+      <div class="place" style="min-width: 60%;">
+        <h3><a href="https://www.google.com/maps/search/?api=1&query=<%= URI.encode_www_form_component(place.send(:name)) %>" target="_blank"><%= place.send(:name) %></a></h3>
+        <p>Open now: <%= place.send(:open_now) %></p>
+        <p>Price level: <%= place.send(:price_level) %></p>
+        <p>Rating: <%= place.send(:rating) %></p>
+        <p>Location: <%= place.send(:vicinity) %></p>
+      </div>
+    <% end %>
+  <% end %>
+</div>

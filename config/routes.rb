@@ -28,4 +28,8 @@ Rails.application.routes.draw do
 
   # Yksikössä, eli esimerkiksi kirjautumissivun osoite on nyt session/new
   resource :session, only: [:new, :create, :destroy]
+
+  get 'places', to: 'places#index'
+
+  post 'places', to: 'places#search'
 end

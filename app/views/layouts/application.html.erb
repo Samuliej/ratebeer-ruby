@@ -39,6 +39,9 @@
           <li>
             <%= link_to 'Ratings', ratings_path, class: (current_page?(ratings_path) ? "active" : "")%>
           </li>
+          <li>
+            <%= link_to 'Beer places', places_path, cass: (current_page?(places_path) ? "active" : "") %>
+          </li>
           <% if current_user %>
             <li>
               <%= link_to "Clubs", beer_clubs_path, class: (current_page?(beer_clubs_path) ? "active" : "") %>
