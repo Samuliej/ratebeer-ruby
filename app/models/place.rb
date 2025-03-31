@@ -1,5 +1,4 @@
 require "ostruct"
-
 class Place < OpenStruct
   def self.rendered_fields
     [
@@ -14,7 +13,6 @@ class Place < OpenStruct
   end
 
   def open_now
-    self.dig(:opening_hours, 'open_now') || false
+    dig(:opening_hours, 'open_now') || false
   end
-
 end

@@ -38,8 +38,8 @@ class PlacesController < ApplicationController
 
       break unless response["next_page_token"]
 
-      sleep(2)  # Allow time for the next page to be available
-      url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?pagetoken=#{response["next_page_token"]}&key=#{API_KEY}"
+      sleep(2)
+      url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?pagetoken=#{response['next_page_token']}&key=#{API_KEY}"
     end
     places.uniq{ |place| place['name'] }
   end
