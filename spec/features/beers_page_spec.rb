@@ -7,8 +7,6 @@ describe "Beers page" do
     visit beers_path
     expect(page).to have_content "Beers"
     expect(page).to have_content "Number of beers: 0"
-    expect(page).to have_content "New beer"
-    save_page
   end
 
   describe "when beers exist" do
@@ -40,14 +38,17 @@ describe "Beers page" do
   end
 
 
-  describe "beer can be added" do
+  describe "beer can be added when user is signed in" do
+    let!(:user) { FactoryBot.create(:user) }
     before :each do
       @brewery = FactoryBot.create(:brewery, name: "Koff")
+      sign_in username: "Pekka", password: "F00bar%"
+
       visit beers_path
       click_link "New beer"
     end
 
-    it "user can navigate to the add beer page" do
+    it "and can navigate to the add beer page" do
       expect(page).to have_content "New beer"
       expect(page).to have_content "Style"
     end

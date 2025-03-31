@@ -5,7 +5,6 @@ describe "Breweries page" do
     visit breweries_path
     expect(page).to have_content "Breweries"
     expect(page).to have_content "Number of breweries: 0"
-    expect(page).to have_content "New brewery"
   end
 
   describe "when breweries exist" do

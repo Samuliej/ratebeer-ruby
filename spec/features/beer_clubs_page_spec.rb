@@ -4,7 +4,6 @@ describe "Beer Clubs page" do
   it "should not have any before been created" do
     visit beer_clubs_path
     expect(page).to have_content "Beer clubs"
-    expect(page).to have_content "New beer club"
     expect(page).not_to have_content "Founded"
     expect(page).not_to have_content "City"
   end
@@ -28,8 +27,7 @@ describe "Beer Clubs page" do
     end
 
     it "allows user to navigate to page of a beer club" do
-      click_link "Show this beer club", match: :first
-
+      click_link "club1"
       expect(page).to have_content "club1"
       expect(page).to have_content 1956
       expect(page).to have_content "City"
@@ -40,7 +38,7 @@ describe "Beer Clubs page" do
       let!(:membership) { FactoryBot.create :membership, beer_club: BeerClub.first, user: user }
 
       it "beer clubs show the users who have joined the club" do
-        click_link "Show this beer club", match: :first
+        click_link "club1"
 
         expect(page).to have_content "club1"
         expect(page).to have_content "Members"

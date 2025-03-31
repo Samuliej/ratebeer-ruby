@@ -16,4 +16,8 @@ class ApplicationController < ActionController::Base
 
     User.find(session[:user_id])
   end
+
+  def ensure_that_signed_in
+    redirect_to new_session_path, notice: "Please sign in" unless current_user
+  end
 end
