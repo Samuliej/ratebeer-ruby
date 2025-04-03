@@ -24,7 +24,7 @@ class BeermappingApi
     # Fetch more pages if available
     while response["next_page_token"]
       sleep(2)
-      next_url = "#{url}&pagetoken=#{response["next_page_token"]}"
+      next_url = "#{url}&pagetoken=#{response['next_page_token']}"
       response = HTTParty.get(next_url)
       places += response["results"]
     end
