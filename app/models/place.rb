@@ -8,7 +8,7 @@ class Place < OpenStruct
       :icon_background_color,
       :price_level,
       :rating,
-      :vicinity
+      :formatted_address
     ]
   end
 
