@@ -67,6 +67,7 @@ group :test do
   gem "webdrivers"
   gem "launchy"
   gem "simplecov", require: false
+  gem 'webmock'
 end
 
 group :development, :test do
