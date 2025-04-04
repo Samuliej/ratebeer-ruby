@@ -6,6 +6,11 @@ require 'rails_helper'
 describe "Beermapping API" do
   API_KEY = ENV["GOOGLE_PLACES_API_KEY"].freeze
 
+  before(:each) do
+    Rails.cache.clear
+  end
+
+
   it "when HTTP get doesn't return any entries, it should return an empty array" do
     canned_answer = <<-JSON
       {
