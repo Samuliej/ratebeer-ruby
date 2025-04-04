@@ -3,20 +3,13 @@ class BeermappingApi
   RADIUS = 2000
 
   def self.places_in(city)
-    url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=beer+pub+tavern+brewery+in+#{ERB::Util.url_encode(city)}&key=#{API_KEY}"
-
-    places = fetch_places(url)
-
-    if places.empty?
-      return []
-    end
-
-    @places = places.map do |place|
-      Place.new(place)
-    end
+    city = city.downcase
+    Rails.cache.fetch(city, expires_in: 1.hour) { fetch_places(city) }
   end
 
-  def self.fetch_places(url)
+  def self.fetch_places(city)
+    url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=beer+pub+tavern+brewery+in+#{ERB::Util.url_encode(city)}&key=#{API_KEY}"
+
     places = []
     response = HTTParty.get(url)
     places += response["results"]
@@ -29,6 +22,10 @@ class BeermappingApi
       places += response["results"]
     end
 
-    places
+    @places = places.map do |place|
+      Place.new(place)
+    end
+
+    @places
   end
 end
