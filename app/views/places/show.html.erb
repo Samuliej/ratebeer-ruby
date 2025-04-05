@@ -1,0 +1,13 @@
+<div class="centered-page-container">
+  <div>
+    <h1><%= @place.name %></h1>
+    <p>Address: <%= @place.formatted_address %></p>
+    <% if @place.opening_hours %>
+      <%= content_tag(:p, "Open now!") if @place.opening_hours['open_now'] %>
+      <%= content_tag(:p, "Closed") unless @place.opening_hours['open_now'] %>
+    <% end %>
+    <%= content_tag(:p, "Price level: #{@place.price_level}") if @place.price_level %>
+    <%= content_tag(:p, "Average rating: #{@place.rating}/5") if @place.rating %>
+    <%= link_to "View the place on google maps", "https://www.google.com/maps/place/?q=place_id:#{@place.place_id}", target: '_blank'%>
+  </div>
+</div>

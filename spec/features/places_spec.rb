@@ -5,7 +5,7 @@ describe "Places" do
   describe "beer places are found" do
     it "if one is returned by the API, it is shown at the page" do
       allow(BeermappingApi).to receive(:places_in).with("Kumpula").and_return(
-        [ Place.new( name: "Oljenkorsi", id: 1 ) ]
+        [ Place.new( name: "Oljenkorsi", place_id: 1 ) ]
       )
 
       visit places_path
@@ -20,7 +20,7 @@ describe "Places" do
       id = 1
       allow(BeermappingApi).to receive(:places_in).with("Kumpula").and_return(
         place_names.map do |place_name|
-          place = Place.new( name: place_name, id: id )
+          place = Place.new( name: place_name, place_id: id )
           id += 1
           place
         end

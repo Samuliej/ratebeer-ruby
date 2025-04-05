@@ -1,6 +1,7 @@
+require "securerandom"
+
 class BeermappingApi
   API_KEY = ENV['GOOGLE_PLACES_API_KEY'].freeze
-  RADIUS = 2000
 
   def self.places_in(city)
     city = city.downcase

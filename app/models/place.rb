@@ -1,4 +1,5 @@
 require "ostruct"
+require "securerandom"
 class Place < OpenStruct
   def self.rendered_fields
     [
@@ -8,7 +9,8 @@ class Place < OpenStruct
       :icon_background_color,
       :price_level,
       :rating,
-      :formatted_address
+      :formatted_address,
+      :place_id
     ]
   end
 

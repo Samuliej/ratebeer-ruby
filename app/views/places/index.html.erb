@@ -13,11 +13,7 @@
     <h2>Beer places in <%= @city %></h2>
     <% @places.each do |place| %>
       <div class="place" style="width: 60%">
-        <h3><a href="https://www.google.com/maps/search/?api=1&query=<%= URI.encode_www_form_component(place.send(:name)) %>" target="_blank"><%= place.send(:name) %></a></h3>
-        <p>Open now: <%= place.send(:open_now) %></p>
-        <p>Price level: <%= place.send(:price_level) %></p>
-        <p>Rating: <%= place.send(:rating) %></p>
-        <p>Location: <%= place.send(:formatted_address) %></p>
+        <h3><%= link_to place.name, place_path(place.place_id)%></h3>
       </div>
     <% end %>
   <% end %>

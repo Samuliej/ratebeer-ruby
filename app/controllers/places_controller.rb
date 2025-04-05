@@ -2,8 +2,13 @@ require "ostruct"
 
 class PlacesController < ApplicationController
   API_KEY = ENV['GOOGLE_PLACES_API_KEY'].freeze
-  RADIUS = 6000
+
   def index
+  end
+
+  def show
+    last_places = session[:last_places]
+    @place = last_places.find { |e| e.place_id == params[:id] }
   end
 
   def search
@@ -12,6 +17,7 @@ class PlacesController < ApplicationController
     if @places.empty?
       redirect_to places_path, notice: "No locations in #{params[:city]}"
     else
+      session[:last_places] = @places
       render :index, status: 418
     end
   end
