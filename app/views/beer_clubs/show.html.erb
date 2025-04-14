@@ -10,6 +10,10 @@
   <% end %>
 <% end %>
 
+<% if current_user && member_of_this_club?(@beer_club) %>
+  <%= button_to "End membership", @membership, method: :delete %>
+<% end %>
+
 <h3>Members</h3>
 
 <ul>
