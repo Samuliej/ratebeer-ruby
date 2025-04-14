@@ -49,7 +49,7 @@
     <orderEntry type="library" scope="PROVIDED" name="bigdecimal (v3.1.9, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bindex (v0.8.1, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bootsnap (v1.18.4, mise: 3.4.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="brakeman (v7.0.1, mise: 3.4.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="brakeman (v7.0.2, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="builder (v3.3.0, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bundler (v2.6.2, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="byebug (v12.0.0, mise: 3.4.1) [gem]" level="application" />
@@ -135,7 +135,7 @@
     <orderEntry type="library" scope="PROVIDED" name="rake (v13.2.1, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rdoc (v6.13.1, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="regexp_parser (v2.10.0, mise: 3.4.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="reline (v0.6.0, mise: 3.4.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="reline (v0.6.1, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rexml (v3.4.1, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec-core (v3.13.3, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec-expectations (v3.13.3, mise: 3.4.1) [gem]" level="application" />
@@ -150,7 +150,7 @@
     <orderEntry type="library" scope="PROVIDED" name="ruby-progressbar (v1.13.0, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubyzip (v2.4.1, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="securerandom (v0.4.1, mise: 3.4.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="selenium-webdriver (v4.30.1, mise: 3.4.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="selenium-webdriver (v4.31.0, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="simplecov (v0.22.0, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="simplecov-html (v0.13.1, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="simplecov_json_formatter (v0.1.4, mise: 3.4.1) [gem]" level="application" />
