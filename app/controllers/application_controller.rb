@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   # Määritellään, että metodi current_user tulee käyttöön myös näkymissä
-  helper_method :current_user
+  helper_method :current_user, :member_of_this_club?
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
 
@@ -19,5 +19,9 @@ class ApplicationController < ActionController::Base
 
   def ensure_that_signed_in
     redirect_to new_session_path, notice: "Please sign in" unless current_user
+  end
+
+  def member_of_this_club?(beer_club)
+    current_user&.memberships&.any? { |m| m.beer_club == beer_club }
   end
 end

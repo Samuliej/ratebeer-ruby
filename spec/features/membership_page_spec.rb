@@ -29,10 +29,10 @@ describe "Membership page" do
       expect { click_button "Join beer club" }.to change { Membership.count }.by(1)
 
       membership = Membership.last
-      expect(current_path).to eq membership_path(membership)
-      expect(page).to have_content "Membership was successfully created."
-      expect(page).to have_content "Membership to #{beer_club.name}"
-      expect(page).to have_content "User: #{user.username}"
+      expect(current_path).to eq beer_club_path(beer_club)
+      expect(page).to have_content "Welcome to the club #{user.username}"
+      expect(page).to have_content "#{beer_club.name}"
+      expect(page).to have_content "Members"
     end
   end
 end
