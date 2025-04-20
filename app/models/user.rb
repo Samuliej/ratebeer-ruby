@@ -65,7 +65,8 @@ class User < ApplicationRecord
     # hashmappeja, josta selviää millä tyylillä mikä yhteinen score
     styles_with_summed_ratings = sum_ratings_score_by_beer_attribute(styles_hash, :style)
     # Palautetaan näistä se tyyli, jolla summattu score on suurin
-    styles_with_summed_ratings.max_by{ |k| k[:rating] }[:style]
+    favorite_style = styles_with_summed_ratings.max_by{ |k| k[:rating] }[:style]
+    favorite_style.name
   end
 
   # Lasketaan käyttäjän suosikkipanimo

@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+<div class="container">
+  <%= render @style %>
+
+  <div>
+    <%= link_to "Edit this style |", edit_style_path(@style) if current_user %>
+    <%= link_to "Back to styles", styles_path %>
+
+    <% if current_user %>
+      <%= button_to "Destroy this style", @style, method: :delete, form: { data: { turbo_confirm: "Are you sure?" } } %>
+    <% end %>
+  </div>
+
+</div>

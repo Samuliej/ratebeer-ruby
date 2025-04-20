@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_20_150209) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_05_131725) do
   create_table "beer_clubs", force: :cascade do |t|
     t.string "name"
     t.integer "founded"
@@ -25,8 +25,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_20_150209) do
     t.integer "brewery_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "style_id", null: false
-    t.index ["style_id"], name: "index_beers_on_style_id"
   end
 
   create_table "breweries", force: :cascade do |t|
@@ -60,19 +58,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_20_150209) do
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
-  create_table "styles", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
   end
-
-  add_foreign_key "beers", "styles"
 end

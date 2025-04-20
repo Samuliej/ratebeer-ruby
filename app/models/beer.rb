@@ -10,6 +10,7 @@ class Beer < ApplicationRecord
   has_many :raters, through: :ratings, source: :user
   # Jos haluttaisiin palauttaa vain yksittäinen käyttäjä
   # has_many :raters, -> { distinct }, through: :ratings, source: :user
+  belongs_to :style
 
   validates :name, presence: true
   validates :style, presence: true
