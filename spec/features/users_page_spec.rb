@@ -28,9 +28,12 @@ describe "Users page" do
     describe "who has made ratings" do
       let!(:brewery) { FactoryBot.create :brewery, name: "Koff" }
       let!(:brewery2) { FactoryBot.create :brewery, name: "Brewery" }
-      let!(:beer1) { FactoryBot.create :beer, name: "Iso 3", style: "Lager", brewery: brewery }
-      let!(:beer2) { FactoryBot.create :beer, name: "Karhu", style: "Lager", brewery: brewery }
-      let!(:beer3) { FactoryBot.create :beer, name: "Kalia", style: "IPA", brewery: brewery2 }
+      let!(:style1) { FactoryBot.create :style, name: "Lager" }
+      let!(:style2) { FactoryBot.create :style, name: "IPA" }
+
+      let!(:beer1) { FactoryBot.create :beer, name: "Iso 3", style: style1, brewery: brewery }
+      let!(:beer2) { FactoryBot.create :beer, name: "Karhu", style: style1, brewery: brewery }
+      let!(:beer3) { FactoryBot.create :beer, name: "Kalia", style: style2, brewery: brewery2 }
       let!(:user) { FactoryBot.create :user, username: "Ukko" }
 
       let!(:rating1) { FactoryBot.create :rating, beer: beer1, user: user }

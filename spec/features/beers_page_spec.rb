@@ -12,9 +12,10 @@ describe "Beers page" do
   describe "when beers exist" do
     before :each do
       @brewery = FactoryBot.create(:brewery, name: "Koff")
+      @style = FactoryBot.create(:style)
       @beers = ["Iso 3", "Karhu", "Koff"]
       @beers.each do |beer|
-        FactoryBot.create(:beer, name: beer, style: "Lager", brewery: @brewery)
+        FactoryBot.create(:beer, name: beer, style: @style, brewery: @brewery)
       end
 
       visit beers_path
@@ -42,6 +43,7 @@ describe "Beers page" do
     let!(:user) { FactoryBot.create(:user) }
     before :each do
       @brewery = FactoryBot.create(:brewery, name: "Koff")
+      @style = FactoryBot.create(:style)
       sign_in username: "Pekka", password: "F00bar%"
 
       visit beers_path
@@ -55,7 +57,8 @@ describe "Beers page" do
 
     it "when beer name is valid, beer is added to the system" do
       fill_in "beer_name", with: "Iso 3"
-      select "Lager", from: "beer[style]"
+
+      select "Lager", from: "beer[style_id]"
       select "Koff", from: "beer[brewery_id]"
 
       expect{
@@ -68,7 +71,8 @@ describe "Beers page" do
 
     it "when beer name is invalid, beer is not added to the system and nothing gets stored to the DB" do
       fill_in "beer_name", with: ""
-      select "Lager", from: "beer[style]"
+
+      select "Lager", from: "beer[style_id]"
       select "Koff", from: "beer[brewery_id]"
 
       click_button "Create Beer"

@@ -80,6 +80,8 @@ RSpec.describe User, type: :model do
   end
 
   describe "favorite style" do
+    let(:meh_style) { FactoryBot.create(:style, name: "meh") }
+    let(:best_style) { FactoryBot.create(:style, name: "best") }
     let(:user) { FactoryBot.create(:user) }
 
     it "has method for determining the favorite_style" do
@@ -93,16 +95,14 @@ RSpec.describe User, type: :model do
     it "is the style of the only rated if only one rating" do
       beer = create_beer_with_rating( { user: user }, 20)
 
-      expect(user.favorite_style).to eq beer.style
+      expect(user.favorite_style).to eq beer.style.name
     end
 
     it "is the style of the one with overall highest rating if several rated" do
-      best_style = "style2"
-
-      create_beers_with_many_ratings_and_custom_styles({ user: user }, 10, 20, 30, "style1")
+      create_beers_with_many_ratings_and_custom_styles({ user: user }, 10, 20, 30, meh_style)
       create_beers_with_many_ratings_and_custom_styles({ user: user }, 20, 30, 40, best_style)
 
-      expect(user.favorite_style).to eq best_style
+      expect(user.favorite_style).to eq best_style.name
     end
   end
 
@@ -113,6 +113,9 @@ RSpec.describe User, type: :model do
     let(:brewery3) { FactoryBot.create(:brewery, name: "Adequate brewery") }
     let(:brewery4) { FactoryBot.create(:brewery, name: "just another brewery") }
 
+    let(:style_lager) { FactoryBot.create(:style, name: "Lager") }
+    let(:style_ipa) { FactoryBot.create(:style, name: "IPA") }
+
     it "has method for determining the favorite_brewery" do
       expect(user).to respond_to(:favorite_brewery)
     end
@@ -122,7 +125,7 @@ RSpec.describe User, type: :model do
     end
 
     it "is the brewery of the only rated beer if only one rating" do
-      beer = create_beer_under_specified_brewery_with_rating({ user: user }, 20, "Lager", brewery)
+      beer = create_beer_under_specified_brewery_with_rating({ user: user }, 20, style_lager, brewery)
 
       expect(user.favorite_brewery.name).to eq beer.brewery.name
     end
@@ -130,10 +133,10 @@ RSpec.describe User, type: :model do
     it "is the brewery of the beer/beers with overall highest rating if several rated" do
       best_brewery = brewery
 
-      create_beers_under_specified_brewery_with_rating({ user: user }, 10, 15, 10, 22, 43, "Lager", brewery2)
-      create_beers_under_specified_brewery_with_rating( { user: user }, 10, 10, 5, 3, 2, 5, 10, "IPA", brewery4)
-      create_beers_under_specified_brewery_with_rating({ user: user }, 40, 45, 10, 22, 43, "Lager", brewery)
-      create_beers_under_specified_brewery_with_rating({ user: user }, 40, 45, 10, 22, 42, "Lager", brewery3)
+      create_beers_under_specified_brewery_with_rating({ user: user }, 10, 15, 10, 22, 43, style_lager, brewery2)
+      create_beers_under_specified_brewery_with_rating( { user: user }, 10, 10, 5, 3, 2, 5, 10, style_ipa, brewery4)
+      create_beers_under_specified_brewery_with_rating({ user: user }, 40, 45, 10, 22, 43, style_lager, brewery)
+      create_beers_under_specified_brewery_with_rating({ user: user }, 40, 45, 10, 22, 42, style_ipa, brewery3)
 
       expect(user.favorite_brewery.name).to eq best_brewery.name
     end
