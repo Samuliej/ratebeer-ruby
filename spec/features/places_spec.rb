@@ -1,11 +1,22 @@
 require 'rails_helper'
 
 describe "Places" do
+  let(:weather) {
+    Weather.new(
+      temperature: 7,
+      weather_icons: [],
+      weather_descriptions: ["Cloudy", "With a chance of meatballs"],
+      wind_speed: 5,
+      wind_dir: "E"
+  )}
 
   describe "beer places are found" do
     it "if one is returned by the API, it is shown at the page" do
       allow(BeermappingApi).to receive(:places_in).with("Kumpula").and_return(
         [ Place.new( name: "Oljenkorsi", place_id: 1 ) ]
+      )
+      allow(WeatherApi).to receive(:fetch_weather).with("Kumpula").and_return(
+        weather
       )
 
       visit places_path
@@ -25,6 +36,9 @@ describe "Places" do
           place
         end
       )
+      allow(WeatherApi).to receive(:fetch_weather).with("Kumpula").and_return(
+        weather
+      )
 
 
       visit places_path
@@ -40,6 +54,9 @@ describe "Places" do
     it "shows default text" do
       allow(BeermappingApi).to receive(:places_in).with("Kumpula").and_return(
         []
+      )
+      allow(WeatherApi).to receive(:fetch_weather).with("Kumpula").and_return(
+        weather
       )
 
       visit places_path

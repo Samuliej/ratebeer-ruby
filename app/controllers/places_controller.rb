@@ -1,8 +1,6 @@
 require "ostruct"
 
 class PlacesController < ApplicationController
-  API_KEY = ENV['GOOGLE_PLACES_API_KEY'].freeze
-
   def index
   end
 
@@ -14,6 +12,7 @@ class PlacesController < ApplicationController
   def search
     @city = format_city_name(params[:city])
     @places = BeermappingApi.places_in(@city)
+    @weather = WeatherApi.fetch_weather(@city)
     if @places.empty?
       redirect_to places_path, notice: "No locations in #{params[:city]}"
     else
