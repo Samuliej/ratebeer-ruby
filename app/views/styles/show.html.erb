@@ -2,11 +2,11 @@
   <%= render @style %>
 
   <div>
-    <%= link_to "Edit this style |", edit_style_path(@style) if current_user %>
-    <%= link_to "Back to styles", styles_path %>
+    <%= link_to "Edit this style", edit_style_path(@style), class: "btn btn-primary" if current_user %>
+    <%= link_to "Back to styles", styles_path, class: "btn btn-secondary" %>
 
     <% if current_user %>
-      <%= button_to "Destroy this style", @style, method: :delete, form: { data: { turbo_confirm: "Are you sure?" } } %>
+      <%= button_to "Destroy this style", @style, method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn-danger" %>
     <% end %>
   </div>
 

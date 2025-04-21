@@ -4,7 +4,7 @@
 
     <p>Number of breweries: <%= @breweries.count %></p>
 
-    <%= link_to "New brewery", new_brewery_path if current_user %>
+    <%= link_to "New brewery", new_brewery_path, class: "btn btn-primary" if current_user %>
 
     <div id="breweries">
       <% @breweries.each do |brewery| %>

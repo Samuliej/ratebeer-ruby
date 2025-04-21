@@ -2,21 +2,21 @@
   <%= render @beer %>
 
   <% if current_user %>
-    <h4>give a rating:</h4>
+    <h4>Give a rating</h4>
 
     <%= form_with(model: @rating) do |form| %>
       <%= form.hidden_field :beer_id %>
       score: <%= form.number_field :score %>
-      <%= form.submit "Create rating" %>
+      <%= form.submit "Create rating", class: "btn btn-primary" %>
     <% end %>
   <% end %>
 
   <div>
-    <%= link_to "Edit this beer |", edit_beer_path(@beer) if current_user %>
-    <%= link_to "Back to beers", beers_path %>
+    <%= link_to "Edit this beer", edit_beer_path(@beer), class: "btn btn-primary" if current_user %>
+    <%= link_to "Back to beers", beers_path, class: "btn btn-secondary" %>
 
     <% if current_user %>
-      <%= button_to "Destroy this beer", @beer, method: :delete, form: { data: { turbo_confirm: "Are you sure?" } } %>
+      <%= button_to "Destroy this beer", @beer, method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn-danger" %>
     <% end %>
   </div>
 
