@@ -4,7 +4,7 @@
   <p>Ratings count: <%= @ratings.count %></p>
 
   <% if current_user %>
-    <%= link_to 'Create a new rating', new_rating_path %>
+    <%= link_to 'Create a new rating', new_rating_path, class: "btn btn-primary" %>
   <% end %>
 
   <ul class="rating-list">

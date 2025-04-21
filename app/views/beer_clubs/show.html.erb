@@ -25,7 +25,7 @@
 <% end %>
 
 <div>
-  <%= link_to "Edit this beer club", edit_beer_club_path(@beer_club), class: "btn btn-secondary" if current_user %>
+  <%= link_to "Edit this beer club", edit_beer_club_path(@beer_club), class: "btn btn-primary" if current_user %>
   <%= link_to "Back to beer clubs", beer_clubs_path, class: "btn btn-secondary" %>
 
   <% if current_user %>

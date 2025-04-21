@@ -29,8 +29,9 @@ ENV RAILS_ENV="production" \
 FROM base AS build
 
 # Install packages needed to build gems
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git pkg-config && \
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get update -qq && \
+    apt-get install --no-install-recommends -y build-essential git pkg-config nodejs && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install application gems
