@@ -24,7 +24,7 @@
 
   <body>
     <header>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
         <div class="container-fluid">
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                   aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,43 +32,52 @@
           </button>
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Left side nav items -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <%= link_to 'Breweries', breweries_path, class: "nav-link #{'active' if current_page?(breweries_path)}" %>
+                <%= link_to "Breweries", breweries_path, class: "nav-link #{"active" if current_page?(breweries_path)}" %>
               </li>
               <li class="nav-item">
-                <%= link_to 'Beers', beers_path, class: "nav-link #{'active' if current_page?(beers_path)}" %>
+                <%= link_to "Beers", beers_path, class: "nav-link #{"active" if current_page?(beers_path)}" %>
               </li>
               <li class="nav-item">
-                <%= link_to 'Styles', styles_path, class: "nav-link #{'active' if current_page?(styles_path)}" %>
+                <%= link_to "Styles", styles_path, class: "nav-link #{"active" if current_page?(styles_path)}" %>
               </li>
               <li class="nav-item">
-                <%= link_to 'Users', users_path, class: "nav-link #{'active' if current_page?(users_path)}" %>
+                <%= link_to "Users", users_path, class: "nav-link #{"active" if current_page?(users_path)}" %>
               </li>
               <li class="nav-item">
-                <%= link_to 'Ratings', ratings_path, class: "nav-link #{'active' if current_page?(ratings_path)}" %>
+                <%= link_to "Ratings", ratings_path, class: "nav-link #{"active" if current_page?(ratings_path)}" %>
               </li>
               <li class="nav-item">
-                <%= link_to 'Beer places', places_path, class: "nav-link #{'active' if current_page?(places_path)}" %>
+                <%= link_to "Beer places", places_path, class: "nav-link #{"active" if current_page?(places_path)}" %>
               </li>
-
-              <% if current_user %>
-                <li class="nav-item">
-                  <%= link_to 'Clubs', beer_clubs_path, class: "nav-link #{'active' if current_page?(beer_clubs_path)}" %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to 'New rating', new_rating_path, class: "nav-link #{'active' if current_page?(new_rating_path)}" %>
-                </li>
-              <% end %>
+              <li class="nav-item">
+                <%= link_to "Clubs", beer_clubs_path, class: "nav-link #{"active" if current_page?(beer_clubs_path)}" %>
+              </li>
             </ul>
 
-            <ul class="navbar-nav mb-2 mb-lg-0">
+            <!-- Right side nav items -->
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
               <% if current_user %>
-                <li class="nav-item">
-                  <%= link_to current_user.username, current_user, class: "nav-link #{'active' if current_page?(user_path(current_user))}" %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to 'Sign out', session_path, data: { turbo_method: :delete }, class: "nav-link" %>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <%= current_user.username %>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                      <%= link_to "Profile", current_user, class: "dropdown-item" %>
+                    </li>
+                    <li>
+                      <%= link_to "Rate a beer", new_rating_path, class: "dropdown-item" %>
+                    </li>
+                    <li>
+                      <%= link_to "Join a club", new_membership_path, class: "dropdown-item" %>
+                    </li>
+                    <li>
+                      <%= link_to "Sign out", session_path, data: { turbo_method: :delete }, class: "dropdown-item text-danger" %>
+                    </li>
+                  </ul>
                 </li>
               <% else %>
                 <li class="nav-item">
