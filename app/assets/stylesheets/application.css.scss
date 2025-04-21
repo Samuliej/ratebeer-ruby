@@ -1,34 +1,12 @@
-.navibar {
-    padding: 10px;
-    background: #3e3e3e;
-    border-radius: 3px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+.navbar li a {
+    border-radius: 8px;
 }
 
-.navibar ul {
-    list-style: none;
-    display: flex;
-    justify-content: flex-start;
-}
-
-.navibar li:not(:first-child) {
-    padding-left: 3em;
-}
-
-.navibar li a {
-    color: white;
-    padding: 2px;
-    border-radius: 3px;
-    text-decoration: none;
-}
-
-.navibar li .active {
+.navbar li .active {
     text-decoration: underline;
 }
 
-.navibar li a:hover {
+.navbar li a:hover {
     background-color: rgb(255, 153, 0);
 }
 
@@ -69,3 +47,5 @@
 .users-container {
     padding: 2em;
 }
+
+@import "bootstrap";

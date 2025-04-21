@@ -28,6 +28,6 @@ class Beer < ApplicationRecord
   end
 
   def to_s
-    "#{name} #{style}, by #{brewery.name}"
+    "#{name} #{style.name}, by #{brewery.name}"
   end
 end

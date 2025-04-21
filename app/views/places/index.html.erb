@@ -2,8 +2,6 @@
 <div class="centered-page-container">
   <h1>Beer places search</h1>
 
-  <p style="color: red"><%= notice %></p>
-
   <%= form_with url: places_path, method: :post do |form| %>
   city <%= form.text_field :city %>
   <%= form.submit "Search" %>

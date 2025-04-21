@@ -19,19 +19,22 @@ class RatingsController < ApplicationController
     @rating = Rating.new rating_params
     @rating.user = current_user
 
-    if @rating.save
-      redirect_to user_path current_user
-    else
-      @beers = Beer.all
-      # Rails 7 ei renderöi erroreita, ellei palauta myös symbolia :unprocessable_entity
-      render :new, status: :unprocessable_entity
+    respond_to do |format|
+      if @rating.save
+        format.html { redirect_to user_path(current_user), notice: "Rating created" }
+        format.json { render }
+      else
+        @beers = Beer.all
+        # Rails 7 ei renderöi erroreita, ellei palauta myös symbolia :unprocessable_entity
+        render :new, status: :unprocessable_entity
+      end
     end
   end
 
   def destroy
     @rating = Rating.find(params[:id])
     @rating.delete if current_user == @rating.user
-    redirect_to user_path(current_user)
+    redirect_to user_path(current_user), notice: "Rating deleted"
   end
 
   private
