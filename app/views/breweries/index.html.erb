@@ -8,7 +8,7 @@
 
     <div id="breweries">
       <% @breweries.each do |brewery| %>
-        <div id=<%= dom_id brewery %>>
+        <div class="brewery-container" id=<%= dom_id brewery %>>
           <%= render brewery %>
         </div>
       <% end %>
