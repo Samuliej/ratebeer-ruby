@@ -7,11 +7,15 @@ class SessionsController < ApplicationController
     # Haetaan nimeä vastaava käyttäjä tietokannasta
     user = User.find_by username: params[:username]
 
-    if user&.authenticate(params[:password])
-      session[:user_id] = user.id
-      redirect_to user_path(user), notice: "Welcome back!"
+    if user.disabled?
+      redirect_to new_session_path, notice: "Your account has been disabled. Please contact an administrator."
     else
-      redirect_to new_session_path, notice: "Username and/or password mismatch"
+      if user.authenticate(params[:password])
+        session[:user_id] = user.id
+        redirect_to user_path(user), notice: "Welcome back!"
+      else
+        redirect_to new_session_path, notice: "Username and/or password mismatch"
+      end
     end
   end
 

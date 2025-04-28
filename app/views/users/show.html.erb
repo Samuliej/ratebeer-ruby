@@ -50,6 +50,17 @@
           <%= button_to "Destroy this user", @user, method: :delete, class: "btn btn-danger" %>
         <% end %>
       </div>
+      <% if current_user.admin? %>
+        <% if @user.disabled? %>
+          <div class="col-md-4">
+            <%= link_to "Enable this account", toggle_disabled_user_path(@user.id), data: {turbo_method: "put"}, class: "btn btn-primary" %>
+          </div>
+        <% else %>
+          <div class="col-md-4">
+            <%= link_to "Disable this account", toggle_disabled_user_path(@user.id), data: {turbo_method: "put"}, class: "btn btn-danger" %>
+          </div>
+        <% end %>
+    <% end %>
     </div>
   </div>
 

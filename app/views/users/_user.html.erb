@@ -1,5 +1,8 @@
 <div id="<%= dom_id user %>">
   <h3>
-    <%= link_to user.username, user  %>
+    <%= link_to user.username, user %>
+    <% if current_user.admin? && user.disabled %>
+      <span class="badge bg-danger">Disabled</span>
+    <% end %>
   </h3>
 </div>
