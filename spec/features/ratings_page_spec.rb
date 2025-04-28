@@ -37,7 +37,7 @@ describe "Rating Page" do
 
   it "visiting all ratings page shows ratings in DB and the total amount of ratings" do
     visit ratings_path
-    expect(page).to have_content "List of ratings"
+    expect(page).to have_content "Ratings"
     expect(page).to have_content "Ratings count: #{Rating.count}"
     expect(page).to have_content beer1.name
     expect(page).to have_content beer2.name

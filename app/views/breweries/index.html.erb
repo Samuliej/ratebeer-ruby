@@ -1,16 +1,26 @@
 
 <div class="centered-page-container">
-    <h1>Breweries</h1>
+  <h1>Breweries</h1>
+  <%= link_to "New brewery", new_brewery_path, class: "btn btn-primary" if current_user %>
+  <h2>Active</h2>
 
-    <p>Number of breweries: <%= @breweries.count %></p>
+  <p>Number of active breweries: <%= @active_breweries.count %></p>
 
-    <%= link_to "New brewery", new_brewery_path, class: "btn btn-primary" if current_user %>
+  <div id="breweries">
+    <% @active_breweries.each do |brewery| %>
+      <div class="brewery-container" id=<%= dom_id brewery %>>
+        <%= render brewery %>
+      </div>
+    <% end %>
+  </div>
 
-    <div id="breweries">
-      <% @breweries.each do |brewery| %>
-        <div class="brewery-container" id=<%= dom_id brewery %>>
-          <%= render brewery %>
-        </div>
-      <% end %>
-    </div>
+  <h2>Retired</h2>
+  <p>Number of retired breweries: <%= @retired_breweries.count %></p>
+  <div id="retiredBreweries">
+    <% @retired_breweries.each do |brewery| %>
+      <div class="brewery-container" id=<%= dom_id brewery %>>
+        <%= render brewery %>
+      </div>
+    <% end %>
+  </div>
 </div>

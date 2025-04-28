@@ -12,20 +12,22 @@
     </div>
   <% end %>
 
-  <% if @weather %>
+  <% if @weather && @weather.temperature.present? %>
     <h3>Weather in <%= @city %></h3>
-    <p>Temperature: <%= @weather.temperature %> Celsius</p>
-    <img src="<%= @weather.weather_icons.first %>" alt="image showcasing weather">
-    <p><%= @weather.weather_descriptions.join(", ") %></p>
-    <p>Wind: <%= @weather.wind_speed %>m/s</p>
+    <p>Temperature: <%= @weather&.temperature %> Celsius</p>
+    <img src="<%= @weather&.weather_icons&.first %>" alt="image showcasing weather">
+    <p><%= @weather&.weather_descriptions&.join(", ") %></p>
+    <p>Wind: <%= @weather&.wind_speed %>m/s</p>
+  <% elsif @places.present? %>
+    <p>No weather found in <%= @city %>, check for typos.</p>
   <% end %>
 
   <% if @places %>
     <h2>Beer places in <%= @city %></h2>
-    <% @places.each do |place| %>
-      <div class="place" style="width: 60%">
-        <h3><%= link_to place.name, place_path(place.place_id)%></h3>
-      </div>
-    <% end %>
-  <% end %>
+    <div>
+      <% @places.each do |place| %>
+        <%= render "place", place: place %>
+      <% end %>
+    </div>
+<% end %>
 </div>

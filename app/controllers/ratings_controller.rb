@@ -1,9 +1,14 @@
 class RatingsController < ApplicationController
+  include ControllerHelper
+  include RatingAverage
+
   # Index renderöi suorituksen lopuksi oikeassa
   # hakemistossa olevan index-nimisen näkymän
   # render :index
   def index
-    @ratings = Rating.all
+    @ratings = Rating.all.includes(:beer) # Ladataan oluet samalla kyselyllä
+    @top_beers = top(Beer, 3)
+    @top_breweries = top(Brewery, 3)
   end
 
   # Luodaan Rating olio, ja välitetään se instanssimuuttujan
@@ -35,6 +40,14 @@ class RatingsController < ApplicationController
     @rating = Rating.find(params[:id])
     @rating.delete if current_user == @rating.user
     redirect_to user_path(current_user), notice: "Rating deleted"
+  end
+
+  def best_beers
+    best_rated(:beer)
+  end
+
+  def best_breweries
+    best_rated(:brewery)
   end
 
   private

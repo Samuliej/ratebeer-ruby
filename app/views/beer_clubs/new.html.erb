@@ -1,11 +1,13 @@
 <% content_for :title, "New beer club" %>
 
-<h1>New beer club</h1>
+<div class="row d-flex align-items-center justify-content-center">
+  <div class="col-md-8">
+    <h1>New beer club</h1>
 
-<%= render "form", beer_club: @beer_club %>
+    <%= render "form", beer_club: @beer_club %>
+  </div>
+</div>
 
-<br>
-
-<div>
+<div class="mt-3">
   <%= link_to "Back to beer clubs", beer_clubs_path, class: "btn btn-secondary mb-3" %>
 </div>

@@ -1,9 +1,24 @@
 module RatingAverage
   extend ActiveSupport::Concern
   def calculate_average
+    return 0 if @ratings.empty?
+
     all_ratings = @ratings.map(&:score)
     all_score_sum = all_ratings.sum
 
     (all_score_sum / @ratings.count.to_f).truncate(1)
+  end
+
+  def best_rated(record)
+    average_ratings = case record
+                      when :beer
+                        @ratings.map{ |r| { beer: r.beer, average_rating: r.beer.average_rating } }
+                      when :brewery
+                        @ratings.map{ |r| { brewery: r.beer.brewery, average_rating: r.brewery.average_rating } }
+                      else
+                        []
+                      end
+
+    average_ratings.sort_by{ |a| a[:average_rating] }.reverse.take(3)
   end
 end

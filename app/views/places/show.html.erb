@@ -1,4 +1,4 @@
-<div class="centered-page-container">
+<div>
   <div>
     <h1><%= @place.name %></h1>
     <p>Address: <%= @place.formatted_address %></p>
@@ -10,4 +10,6 @@
     <%= content_tag(:p, "Average rating: #{@place.rating}/5") if @place.rating %>
     <%= link_to "View the place on google maps", "https://www.google.com/maps/place/?q=place_id:#{@place.place_id}", target: '_blank'%>
   </div>
+  <%= button_to "Back", :back, class: "btn btn-primary mt-2" %>
 </div>
+

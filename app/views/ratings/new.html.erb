@@ -1,31 +1,39 @@
-<h2>Create new rating</h2>
+<div class="row d-flex align-items-center justify-content-center">
+  <div class="col-md-8">
+    <h2>Create new rating</h2>
 
-<%= form_for(@rating) do |f| %>
-    <% if @rating.errors.any? %>
+    <%= form_for(@rating) do |f| %>
+      <% if @rating.errors.any? %>
         <div class="error_explanation">
-            <h2><%= pluralize(@rating.errors.count, "error") %> prohibited rating from being saved:</h2>
+          <h2><%= pluralize(@rating.errors.count, "error") %> prohibited rating from being saved:</h2>
 
-            <ul>
-                <% @rating.errors.full_messages.each do |msg| %>
-                    <li>
-                        <%= msg %>
-                    </li>
-                <% end %>
-            </ul>
+          <ul>
+            <% @rating.errors.full_messages.each do |msg| %>
+              <li>
+                <%= msg %>
+              </li>
+            <% end %>
+          </ul>
         </div>
-    <% end %>
+      <% end %>
 
-    <div class="mb-3">
+      <div class="mb-3">
         <%= f.label :beer_id, "Beer", class: "form-label" %>
         <%= f.select :beer_id, options_from_collection_for_select(@beers, :id, :to_s, selected: @rating.beer_id), {}, { class: "form-control" } %>
-    </div>
-    <div class="mb-3">
+      </div>
+      <div class="mb-3">
         <%= f.label :score, "Score", class: "form-label" %>
         <%= f.number_field :score, class: "form-control" %>
-    </div>
-    <div class="alert alert-warning" role="alert">
-      Maximum score is 50.
-    </div>
+      </div>
+      <div class="alert alert-warning" role="alert">
+        Maximum score is 50.
+      </div>
 
-    <%= f.submit class: "btn btn-primary" %>
-<% end %>
+      <%= f.submit class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
+<div class="mt-3">
+  <%= link_to "Back to ratings", ratings_path, class: "btn btn-secondary" %>
+</div>

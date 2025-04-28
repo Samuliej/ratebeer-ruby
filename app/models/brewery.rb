@@ -11,6 +11,10 @@ class Brewery < ApplicationRecord
   validates :name, presence: true
   validates :year, presence: true
   validate :validate_year
+
+  scope :active, -> { where(active: true) }
+  scope :retired, -> { where(active: [nil, false]) }
+
   def print_report
     config.logger name
     config.logger "established at year #{year}"

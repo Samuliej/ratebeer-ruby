@@ -1,11 +1,12 @@
 <% content_for :title, "New style" %>
+<div class="row d-flex align-items-center justify-content-center">
+  <div class="col-md-8">
+    <h1>New style</h1>
 
-<h1>New style</h1>
+    <%= render "form", style: @style %>
+  </div>
+</div>
 
-<%= render "form", style: @style %>
-
-<br>
-
-<div>
+<div class="mt-3">
   <%= link_to "Back to styles", styles_path, class: "btn btn-secondary" %>
 </div>
