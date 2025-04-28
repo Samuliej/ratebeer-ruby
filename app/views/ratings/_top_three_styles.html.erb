@@ -1,0 +1,17 @@
+<h3>Top three styles</h3>
+<table class="table">
+  <thead>
+  <tr>
+    <th>Style</th>
+    <th>Average</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% styles.each do |style| %>
+    <tr>
+      <td><%= link_to style.name, style %></td>
+      <td><%= style.average_rating %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

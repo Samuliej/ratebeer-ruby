@@ -1,0 +1,17 @@
+<h3>Top three beers</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Beer</th>
+      <th>Average</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% beers.each do |beer| %>
+    <tr>
+      <td><%= link_to beer.name, beer %></td>
+      <td><%= beer.average_rating %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

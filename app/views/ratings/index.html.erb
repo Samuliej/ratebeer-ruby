@@ -8,50 +8,28 @@
       <% end %>
     </div>
   </div>
-  <div class="row">
+  <div class="row mb-3">
     <div class="col-md-4">
+      <%= render "top_three_beers", beers: @top_beers %>
+    </div>
+    <div class="col-md-4">
+      <%= render "top_three_breweries", breweries: @top_breweries %>
+    </div>
+    <div class="col-md-4">
+      <%= render "top_three_styles", styles: @top_styles %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-md-12">
+      <h4>Most active users</h4>
+      <%= render "most_active_raters_table" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
       <h4>Latest ratings</h4>
-      <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-          <th>Beer</th>
-          <th>Rating</th>
-          <th>User</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% Rating.latest.each do |rating| %>
-          <tr>
-            <td>
-              <%= link_to rating.beer.name, rating.beer %>
-            </td>
-            <td>
-              <%= rating.score %> / 50
-            </td>
-            <td>
-              <%= link_to rating.user.username, rating.user %>
-            </td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
+      <%= render "latest_ratings_table" %>
     </div>
-    <div class="col-md-8">
-      <h3>Top three breweries</h3>
-      <ol>
-        <% @top_breweries.each do |brewery| %>
-          <li><%= link_to brewery.name, brewery %></li>
-        <% end %>
-      </ol>
-
-      <h3>Top three beers</h3>
-      <ol>
-        <% @top_beers.each do |beer| %>
-          <li><%= link_to beer.name, beer %></li>
-        <% end %>
-      </ol>
-    </div>
-
   </div>
 
 </div>

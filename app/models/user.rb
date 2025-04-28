@@ -19,6 +19,14 @@ class User < ApplicationRecord
   has_many :memberships, dependent: :destroy
   has_many :beer_clubs, through: :memberships
 
+  scope :most_active, ->(limit = 3) {
+    select('users.*, COUNT(ratings.id) AS ratings_count')
+      .joins(:ratings)
+      .group('users.id')
+      .order('ratings_count DESC')
+      .limit(limit)
+  }
+
   # Käyttäjätunnuksen täytyy olla uniikki, minimipituus 3
   validates :username,
             uniqueness: true,

@@ -6,9 +6,10 @@ class RatingsController < ApplicationController
   # hakemistossa olevan index-nimisen näkymän
   # render :index
   def index
-    @ratings = Rating.all.includes(:beer) # Ladataan oluet samalla kyselyllä
+    @ratings = Rating.all.includes(:beer, :brewery, :style)
     @top_beers = top(Beer, 3)
     @top_breweries = top(Brewery, 3)
+    @top_styles = top(Style, 3)
   end
 
   # Luodaan Rating olio, ja välitetään se instanssimuuttujan
