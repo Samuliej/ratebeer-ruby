@@ -1,13 +1,17 @@
-<div class="container">
-  <%= render @style %>
+<div class="row d-flex align-items-center justify-content-center show-container">
+  <div class="col-md-8">
+    <%= render @style %>
+
+    <div class="mb-3">
+
+      <% if current_user %>
+        <%= edit_and_destroy_buttons(@style) %>
+      <% end %>
+    </div>
+  </div>
 
   <div>
-    <%= link_to "Edit this style", edit_style_path(@style), class: "btn btn-primary" if current_user %>
     <%= link_to "Back to styles", styles_path, class: "btn btn-secondary" %>
-
-    <% if current_user %>
-      <%= button_to "Destroy this style", @style, method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn-danger" %>
-    <% end %>
   </div>
 
 </div>

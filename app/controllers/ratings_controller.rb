@@ -1,5 +1,4 @@
 class RatingsController < ApplicationController
-  include ControllerHelper
   include RatingAverage
 
   # Index renderöi suorituksen lopuksi oikeassa

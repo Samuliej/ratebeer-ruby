@@ -1,52 +1,60 @@
-<h2><%= @user.username %></h2>
+<div class="row d-flex align-items-center justify-content-center show-container">
+  <div class="col-md-8">
+    <h2><%= @user.username %></h2>
 
-<% if @user.ratings.empty? %>
-  <p>Has not rated any beers yet.</p>
-<% else %>
-  <p><%= @user.username %>'s favorite beer style is <%= @user.favorite_style %></p>
-  <p><%= @user.username %>'s favorite brewery is <%= @user.favorite_brewery.name %></p>
-  <p>Has made <%= pluralize(@user.ratings.count, "rating") %>, average rating <%= @user.average_rating %></p>
-<% end %>
-
-<% if @user.beer_clubs.empty? %>
-  <p><%= @user.username %> has not joined any beer clubs yet</p>
-<% else %>
-  <h3>Member of</h3>
-
-  <ul>
-    <% @user.beer_clubs.each do |club| %>
-      <li>
-        <%= link_to club.name, club %>
-      </li>
+    <% if @user.ratings.empty? %>
+      <p>Has not rated any beers yet.</p>
+    <% else %>
+      <p><%= @user.username %>'s favorite beer style is <%= @user.favorite_style %></p>
+      <p><%= @user.username %>'s favorite brewery is <%= @user.favorite_brewery.name %></p>
+      <p>Has made <%= pluralize(@user.ratings.count, "rating") %>, average rating <%= @user.average_rating %></p>
     <% end %>
-  </ul>
-<% end %>
 
-<h3>Ratings</h3>
-    
-<ul>
-  <% @user.ratings.each do |rating| %>
-    <li>
-      <%= rating.to_s %> 
-      <% if rating&.user&.id == current_user&.id %>
-        <%= link_to 'Delete', rating, data: { "turbo-method": :delete, "turbo-confirm": 'Are you sure?' }, class: "btn btn-danger btn-xs" %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
+    <% if @user.beer_clubs.empty? %>
+      <p><%= @user.username %> has not joined any beer clubs yet</p>
+    <% else %>
+      <h3>Member of</h3>
 
-<div>
-  <% if @user == current_user %>
-    <%= link_to "Edit this user", edit_user_path(@user), class: "btn btn-primary" %>
-  <% end %>
-  
-  <%= link_to "Back to users", users_path, class: "btn btn-secondary" %>
+      <ul>
+        <% @user.beer_clubs.each do |club| %>
+          <li>
+            <%= link_to club.name, club %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
 
-  <% if @user == current_user %>
-    <%= button_to "Destroy this user", @user, method: :delete, class: "btn btn-danger" %>
-  <% end %>
+    <% unless @user.ratings.empty? %>
+      <h3>Ratings</h3>
+
+      <ul>
+        <% @user.ratings.each do |rating| %>
+          <li>
+            <%= rating.to_s %>
+            <% if rating&.user&.id == current_user&.id %>
+              <%= link_to 'Delete', rating, data: { "turbo-method": :delete, "turbo-confirm": 'Are you sure?' }, class: "btn btn-danger btn-xs" %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-4">
+        <% if @user == current_user %>
+          <%= link_to "Edit this user", edit_user_path(@user), class: "btn btn-primary" %>
+        <% end %>
+      </div>
+      <div class="col-md-4">
+        <% if @user == current_user %>
+          <%= button_to "Destroy this user", @user, method: :delete, class: "btn btn-danger" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <%= link_to "Back to users", users_path, class: "btn btn-secondary" %>
+  </div>
+
 </div>
-
-
-
-

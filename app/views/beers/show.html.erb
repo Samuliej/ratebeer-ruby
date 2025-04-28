@@ -1,23 +1,27 @@
-<div class="container">
-  <%= render @beer %>
-
-  <% if current_user %>
-    <h4>Give a rating</h4>
-
-    <%= form_with(model: @rating) do |form| %>
-      <%= form.hidden_field :beer_id %>
-      score: <%= form.number_field :score %>
-      <%= form.submit "Create rating", class: "btn btn-primary" %>
-    <% end %>
-  <% end %>
-
-  <div>
-    <%= link_to "Edit this beer", edit_beer_path(@beer), class: "btn btn-primary" if current_user %>
-    <%= link_to "Back to beers", beers_path, class: "btn btn-secondary" %>
+<div class="row d-flex align-items-center justify-content-center show-container">
+  <div class="col-md-8">
+    <%= render @beer %>
 
     <% if current_user %>
-      <%= button_to "Destroy this beer", @beer, method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn-danger" %>
+      <h4>Give a rating</h4>
+
+      <%= form_with(model: @rating) do |form| %>
+        <%= form.hidden_field :beer_id %>
+        score: <%= form.number_field :score %>
+        <%= form.submit "Create rating", class: "btn btn-primary" %>
+      <% end %>
     <% end %>
+
+    <div class="mb-3">
+      <% if current_user %>
+        <%= edit_and_destroy_buttons(@beer) %>
+      <% end %>
+    </div>
   </div>
 
+  <div>
+    <%= link_to "Back to beers", beers_path, class: "btn btn-secondary" %>
+  </div>
 </div>
+
+

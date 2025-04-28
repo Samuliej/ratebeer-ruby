@@ -1,12 +1,13 @@
 module RatingAverage
   extend ActiveSupport::Concern
+  include ApplicationHelper
   def calculate_average
     return 0 if @ratings.empty?
 
     all_ratings = @ratings.map(&:score)
     all_score_sum = all_ratings.sum
 
-    (all_score_sum / @ratings.count.to_f).truncate(1)
+    round((all_score_sum / @ratings.count.to_f))
   end
 
   def best_rated(record)

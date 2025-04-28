@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   # Määritellään, että metodi current_user tulee käyttöön myös näkymissä
-  helper_method :current_user, :member_of_this_club?
+  helper_method :current_user, :member_of_this_club?, :top
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
 
@@ -23,5 +23,9 @@ class ApplicationController < ActionController::Base
 
   def member_of_this_club?(beer_club)
     current_user&.memberships&.any? { |m| m.beer_club == beer_club }
+  end
+
+  def top(record, number)
+    record.all.sort_by(&:average_rating).reverse.take(number)
   end
 end

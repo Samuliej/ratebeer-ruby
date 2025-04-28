@@ -39,6 +39,12 @@ main {
     align-items: center;
 }
 
+.show-container {
+  border: 1px solid rgba(209, 207, 207, 0.53);
+  box-shadow: 5px 5px 2px 1px rgba(78, 78, 90, 0.2);
+  padding: 0.5em;
+}
+
 .page-container {
     border: 1px solid rgba(209, 207, 207, 0.53);
     background-color: rgba(124, 178, 243, 0.55);

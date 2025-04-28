@@ -1,34 +1,40 @@
-<%= render @beer_club %>
+<div class="row d-flex align-items-center justify-content-center show-container">
+  <div class="col-md-8">
+    <%= render @beer_club %>
 
-<% if current_user && !member_of_this_club?(@beer_club) %>
-  <%= form_with(model: @membership) do |form| %>
-    <%= form.hidden_field :beer_club_id, value: @beer_club.id %>
-    <%= form.hidden_field :user_id, value: current_user.id %>
-    <%= form.submit "Join the beer club", class: "btn btn-primary"%>
-  <% end %>
-<% end %>
-
-<% if current_user && member_of_this_club?(@beer_club) %>
-  <%= button_to "End membership",  @membership, method: :delete, class: "btn btn-danger" %>
-<% end %>
-
-<% unless @beer_club.users.empty? %>
-  <h3>Members</h3>
-
-  <ul>
-    <% @beer_club.users.each do |user| %>
-      <li>
-        <%= link_to user.username, user %>
-      </li>
+    <% if current_user && !member_of_this_club?(@beer_club) %>
+      <%= form_with(model: @membership) do |form| %>
+        <%= form.hidden_field :beer_club_id, value: @beer_club.id %>
+        <%= form.hidden_field :user_id, value: current_user.id %>
+        <%= form.submit "Join the beer club", class: "btn btn-primary"%>
+      <% end %>
     <% end %>
-  </ul>
-<% end %>
 
-<div>
-  <%= link_to "Edit this beer club", edit_beer_club_path(@beer_club), class: "btn btn-primary" if current_user %>
-  <%= link_to "Back to beer clubs", beer_clubs_path, class: "btn btn-secondary" %>
+    <% if current_user && member_of_this_club?(@beer_club) %>
+      <%= button_to "End membership",  @membership, method: :delete, class: "btn btn-danger" %>
+    <% end %>
 
-  <% if current_user %>
-    <%= button_to "Destroy this beer club", @beer_club, method: :delete, class: "btn btn-danger" %>
-  <% end %>
+    <% unless @beer_club.users.empty? %>
+      <h3>Members</h3>
+
+      <ul>
+        <% @beer_club.users.each do |user| %>
+          <li>
+            <%= link_to user.username, user %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <div class="mb-3">
+      <% if current_user %>
+        <%= edit_and_destroy_buttons(@beer_club) %>
+      <% end %>
+    </div>
+  </div>
+
+  <div>
+    <%= link_to "Back to beer clubs", beer_clubs_path, class: "btn btn-secondary" %>
+  </div>
 </div>
+
