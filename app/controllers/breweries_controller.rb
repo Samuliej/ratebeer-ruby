@@ -1,6 +1,7 @@
 class BreweriesController < ApplicationController
   before_action :set_brewery, only: %i[show edit update destroy]
   before_action :ensure_that_signed_in, except: [:index, :show]
+  before_action :ensure_that_user_is_admin, only: %i[destroy]
 
   # GET /breweries or /breweries.json
   def index
@@ -57,6 +58,15 @@ class BreweriesController < ApplicationController
       format.html { redirect_to breweries_path, status: :see_other, notice: I18n.t('notices.brewery_destroyed') }
       format.json { head :no_content }
     end
+  end
+
+  def toggle_activity
+    brewery = Brewery.find(params[:id])
+    brewery.update_attribute :active, !brewery.active?
+
+    new_status = brewery.active? ? "active" : "retired"
+
+    redirect_to brewery, notice: "Brewery activity status changed to #{new_status}"
   end
 
   private

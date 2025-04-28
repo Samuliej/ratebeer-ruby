@@ -21,6 +21,10 @@ class ApplicationController < ActionController::Base
     redirect_to new_session_path, notice: "Please sign in" unless current_user
   end
 
+  def ensure_that_user_is_admin
+    redirect_to root_path, notice: "You don't have the permission to do that" unless current_user.admin?
+  end
+
   def member_of_this_club?(beer_club)
     current_user&.memberships&.any? { |m| m.beer_club == beer_club }
   end
