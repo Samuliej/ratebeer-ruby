@@ -34,20 +34,37 @@ BREWERIES.show = () => {
     });
 };
 
-// BREWERIES.sortByName = () => {
-//     BREWERIES.list.sort((a, b) =>
-//         a.name
-//             .toUpperCase()
-//             .localeCompare(b.name.toUpperCase())
-//     );
-// };
-//
-// BREWERIES.sortByYear = () => BREWERIES.list.sort((a, b) => a.year > b.year);
-//
-// BREWERIES.sortByBeerCount = () => BREWERIES.list.sort((a, b) => a.beers.count > b.beers.count);
+BREWERIES.sortByName = () => {
+    BREWERIES.list.sort((a, b) =>
+        a.name
+            .toUpperCase()
+            .localeCompare(b.name.toUpperCase())
+    );
+};
+
+BREWERIES.sortByYear = () => BREWERIES.list.sort((a, b) => b.year - a.year);
+BREWERIES.sortByBeerCount = () => BREWERIES.list.sort((a, b) => b.beers.count - a.beers.count);
 
 const breweries = () => {
     if (document.querySelectorAll("#brewerylist").length < 1) return;
+
+    document.getElementById("name").addEventListener("click", (e) => {
+        e.preventDefault();
+        BREWERIES.sortByName();
+        BREWERIES.show();
+    });
+
+    document.getElementById("year").addEventListener("click", (e) => {
+        e.preventDefault();
+        BREWERIES.sortByYear();
+        BREWERIES.show();
+    });
+
+    document.getElementById("beerCount").addEventListener("click", (e) => {
+        e.preventDefault();
+        BREWERIES.sortByBeerCount();
+        BREWERIES.show();
+    })
 
     fetch("breweries.json")
         .then((response) => response.json())
