@@ -31,7 +31,9 @@ class RatingsController < ApplicationController
       else
         @beers = Beer.all
         # Rails 7 ei renderöi erroreita, ellei palauta myös symbolia :unprocessable_entity
-        render :new, status: :unprocessable_entity
+        # render :new, status: :unprocessable_entity
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @rating.errors, status: :unprocessable_entity }
       end
     end
   end

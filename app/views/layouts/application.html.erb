@@ -32,6 +32,8 @@
             <span class="navbar-toggler-icon"></span>
           </button>
 
+          <i class="fas fa-beer text-warning fs-4 d-lg-none"></i>
+
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left side nav items -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -94,6 +96,16 @@
       </nav>
     </header>
 
+    <!-- Fixed image outside the container -->
+    <div class="d-none d-lg-block"
+         style="position: fixed; top: 50%; right: 20px; transform: translateY(-50%); z-index: 1050;">
+      <img
+        src="https://www.cs.helsinki.fi/u/mluukkai/wadror/pint.jpg"
+        width="200"
+        alt="image of beer"
+      >
+    </div>
+
     <div class="container mb-3">
       <% if notice %>
         <div class="alert alert-primary" role="alert">
@@ -104,16 +116,8 @@
         <div class="col-sm-10">
           <%= yield %>
         </div>
-        <div class="col-sm-2">
-          <img
-            src="http://www.cs.helsinki.fi/u/mluukkai/wadror/pint.jpg"
-            width="200"
-            style="padding-top:30px"
-          >
-        </div>
       </div>
     </div>
-
 
     <footer class="bg-dark text-center text-white mt-auto">
       <div class="container p-4 pb-0">
