@@ -17,12 +17,10 @@ describe "Beerlist page" do
         headless: true,
         window_size: [1920, 1080],
         timeout: 60,
-        process_timeout: 5,
+        process_timeout: 20,
         browser_options: browser_options
       )
     end
-  end
-
 
     Capybara.javascript_driver = :cuprite
     WebMock.disable_net_connect!(allow_localhost: true)
