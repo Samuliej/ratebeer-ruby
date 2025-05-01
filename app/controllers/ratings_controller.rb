@@ -5,7 +5,7 @@ class RatingsController < ApplicationController
   # hakemistossa olevan index-nimisen näkymän
   # render :index
   def index
-    @ratings = Rating.all.includes(:beer, :brewery, :style)
+    @ratings = Rating.all.includes(:beer)
     @top_beers = top(Beer, 3)
     @top_breweries = top(Brewery, 3)
     @top_styles = top(Style, 3)

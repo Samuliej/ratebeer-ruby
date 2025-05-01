@@ -18,6 +18,9 @@ class BeersController < ApplicationController
              end
   end
 
+  def list
+  end
+
   # GET /beers/1 or /beers/1.json
   def show
     @rating = Rating.new

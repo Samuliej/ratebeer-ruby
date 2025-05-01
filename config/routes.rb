@@ -37,4 +37,6 @@ Rails.application.routes.draw do
   resources :places, only: [:index, :show]
 
   post 'places', to: 'places#search'
+
+  get 'beerlist', to: 'beers#list'
 end
