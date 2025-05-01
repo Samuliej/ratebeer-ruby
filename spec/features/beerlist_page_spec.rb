@@ -8,14 +8,20 @@ describe "Beerlist page" do
   # En millään saanut seleniumilla toimimaan
   before :all do
     Capybara.register_driver :cuprite do |app|
+      browser_options = {}.tap do |opts|
+        opts['no-sandbox'] = nil if ENV['CI']
+      end
+
       Capybara::Cuprite::Driver.new(
         app,
         headless: true,
         window_size: [1920, 1080],
-        timeout: 60,             
-        process_timeout: 10
+        timeout: 60,
+        process_timeout: 5,
+        browser_options: browser_options
       )
     end
+  end
 
 
     Capybara.javascript_driver = :cuprite
