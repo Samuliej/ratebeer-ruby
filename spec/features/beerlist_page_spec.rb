@@ -8,8 +8,15 @@ describe "Beerlist page" do
   # En millään saanut seleniumilla toimimaan
   before :all do
     Capybara.register_driver :cuprite do |app|
-      Capybara::Cuprite::Driver.new(app, headless: true, window_size: [1920, 1080], timeout: 60)
+      Capybara::Cuprite::Driver.new(
+        app,
+        headless: true,
+        window_size: [1920, 1080],
+        timeout: 60,             
+        process_timeout: 10
+      )
     end
+
 
     Capybara.javascript_driver = :cuprite
     WebMock.disable_net_connect!(allow_localhost: true)
