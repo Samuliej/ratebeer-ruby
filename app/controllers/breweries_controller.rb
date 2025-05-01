@@ -5,8 +5,12 @@ class BreweriesController < ApplicationController
 
   # GET /breweries or /breweries.json
   def index
-    @active_breweries = Brewery.active
-    @retired_breweries = Brewery.retired
+    if params[:format] == "json"
+      @breweries = Brewery.all.includes(:beers)
+    else
+      @active_breweries = Brewery.active.includes(:beers)
+      @retired_breweries = Brewery.retired.includes(:beers)
+    end
   end
 
   # GET /breweries/1 or /breweries/1.json
@@ -16,6 +20,9 @@ class BreweriesController < ApplicationController
   # GET /breweries/new
   def new
     @brewery = Brewery.new
+  end
+
+  def list
   end
 
   # GET /breweries/1/edit
