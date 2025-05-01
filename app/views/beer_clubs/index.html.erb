@@ -6,8 +6,6 @@
   <%= link_to "New beer club", new_beer_club_path, class: "btn btn-primary" if current_user %>
 
   <div id="beer_clubs">
-    <% @beer_clubs.each do |beer_club| %>
-      <%= render beer_club %>
-    <% end %>
+    <%= render "beer_club_table", beer_clubs: @beer_clubs %>
   </div>
 </div>

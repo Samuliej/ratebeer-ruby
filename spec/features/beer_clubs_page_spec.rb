@@ -3,9 +3,7 @@ require "rails_helper"
 describe "Beer Clubs page" do
   it "should not have any before been created" do
     visit beer_clubs_path
-    expect(page).to have_content "Beer clubs"
-    expect(page).not_to have_content "Founded"
-    expect(page).not_to have_content "City"
+    expect(page).to have_selector("table tbody tr", count: 0)
   end
 
   describe "when beer clubs exist" do
