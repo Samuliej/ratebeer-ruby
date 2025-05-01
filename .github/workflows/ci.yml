@@ -97,41 +97,5 @@ jobs:
           RAILS_ENV: test
         run: |
           bin/rails db:test:prepare
-          bundle exec rspec spec
-
-  js-tests:
-    name: RSpec (JS Capybara)
-    runs-on: ubuntu-latest
-    needs: test
-    services:
-      postgres:
-        image: postgres:11-alpine
-        ports:
-          - "5432:5432"
-        env:
-          POSTGRES_DB: rails_test
-          POSTGRES_USER: rails
-          POSTGRES_PASSWORD: password
-    env:
-      RAILS_ENV: test
-      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
-    steps:
-      - name: Install packages
-        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git pkg-config google-chrome-stable
-
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: .ruby-version
-          bundler-cache: true
-
-      - name: Make bin/rails executable
-        run: chmod +x bin/rails
-
-      - name: Run JS tests
-        run: |
-          bin/rails db:create db:schema:load
+          bundle exec rspec --exclude-pattern "spec/features/beerlist_page_spec.rb"
           bundle exec rspec spec/features/beerlist_page_spec.rb
