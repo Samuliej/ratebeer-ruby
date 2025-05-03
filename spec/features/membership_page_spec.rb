@@ -19,14 +19,12 @@ describe "Membership page" do
       expect(page).to have_content "Join a Beer Club"
     end
 
-    it "signed in user can join a beer club" do
+    it "signed in user can send an application to join a beer club" do
       select "#{beer_club.name}, founded #{beer_club.founded} in #{beer_club.city}", from: "membership[beer_club_id]"
       expect { click_button "Join beer club" }.to change { Membership.count }.by(1)
 
       expect(current_path).to eq beer_club_path(beer_club)
-      expect(page).to have_content "Welcome to the club #{user.username}"
-      expect(page).to have_content "#{beer_club.name}"
-      expect(page).to have_content "Members"
+      expect(page).to have_content "Your application was sent"
     end
   end
 end

@@ -40,6 +40,9 @@ class BeerClubsController < ApplicationController
 
     respond_to do |format|
       if @beer_club.save
+        # Tehdään klubin luojasta jäsen jotta voidaan hyväksyä uusia jäsenyyksiä
+        @beer_club.memberships.create(beer_club: @beer_club, user: current_user, confirmed: true)
+
         format.html { redirect_to @beer_club, notice: "Beer club was successfully created." }
         format.json { render :show, status: :created, location: @beer_club }
       else

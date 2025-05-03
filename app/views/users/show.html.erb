@@ -10,15 +10,31 @@
       <p>Has made <%= pluralize(@user.ratings.count, "rating") %>, average rating <%= @user.average_rating %></p>
     <% end %>
 
-    <% if @user.beer_clubs.empty? %>
+    <h3>Beer clubs</h3>
+
+    <% if @user.unconfirmed_memberships.empty? && @user.confirmed_memberships.empty? %>
       <p><%= @user.username %> has not joined any beer clubs yet</p>
-    <% else %>
-      <h3>Member of</h3>
+    <% end %>
+
+    <% if @user.confirmed_memberships.any? %>
+      <h4>Member of</h4>
 
       <ul>
-        <% @user.beer_clubs.each do |club| %>
+        <% @user.confirmed_memberships.each do |membership| %>
           <li>
-            <%= link_to club.name, club %>
+            <%= link_to membership.beer_club.name, membership.beer_club %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <% if @user.unconfirmed_memberships.any? %>
+      <h4>Pending membership applications</h4>
+
+      <ul>
+        <% @user.unconfirmed_memberships.each do |membership| %>
+          <li>
+            <%= link_to membership.beer_club.name, membership.beer_club %>
           </li>
         <% end %>
       </ul>

@@ -17,6 +17,8 @@ class User < ApplicationRecord
   has_many :ratings, dependent: :destroy
   has_many :beers, through: :ratings
   has_many :memberships, dependent: :destroy
+  has_many :confirmed_memberships, -> { where(confirmed: true) }, class_name: 'Membership'
+  has_many :unconfirmed_memberships, -> { where(confirmed: false) }, class_name: 'Membership'
   has_many :beer_clubs, through: :memberships
 
   scope :most_active, ->(limit = 3) {

@@ -2,11 +2,11 @@
   <div class="col-md-8">
     <%= render @beer_club %>
 
-    <% if current_user && !member_of_this_club?(@beer_club) %>
+    <% if current_user && !member_of_this_club?(@beer_club) && !application_sent?(@beer_club) %>
       <%= form_with(model: @membership) do |form| %>
         <%= form.hidden_field :beer_club_id, value: @beer_club.id %>
         <%= form.hidden_field :user_id, value: current_user.id %>
-        <%= form.submit "Join the beer club", class: "btn btn-primary"%>
+        <%= form.submit "Join the beer club", class: "btn btn-primary" %>
       <% end %>
     <% end %>
 
@@ -14,13 +14,33 @@
       <%= button_to "End membership",  @membership, method: :delete, class: "btn btn-danger" %>
     <% end %>
 
-    <% unless @beer_club.users.empty? %>
+    <% unless @beer_club.confirmed_memberships.empty? %>
       <h3>Members</h3>
 
       <ul>
-        <% @beer_club.users.each do |user| %>
+        <% @beer_club.confirmed_memberships.each do |membership| %>
           <li>
-            <%= link_to user.username, user %>
+            <%= link_to membership.user.username, membership.user %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <% if current_user && member_of_this_club?(@beer_club) && @beer_club.unconfirmed_memberships.any? %>
+      <h3>Pending applications</h3>
+
+      <ul>
+        <% @beer_club.unconfirmed_memberships.each do |membership| %>
+          <li>
+            <div>
+              <%= form_with(model: membership) do |form| %>
+                <%= label_tag nil, membership.user.username, class: "form-label" %>
+                <%= form.hidden_field :beer_club_id, value: @beer_club.id %>
+                <%= form.hidden_field :user_id, value: membership.user.id %>
+                <%= form.hidden_field :confirmed, value: true %>
+                <%= form.submit "Confirm", class: "btn btn-primary"%>
+              <% end %>
+            </div>
           </li>
         <% end %>
       </ul>

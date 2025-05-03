@@ -30,7 +30,7 @@ class MembershipsController < ApplicationController
 
     respond_to do |format|
       if @membership.save
-        format.html { redirect_to @membership.beer_club, notice: "Welcome to the club #{current_user.username}" }
+        format.html { redirect_to @membership.beer_club, notice: "Your application was sent" }
         format.json { render }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -71,6 +71,6 @@ class MembershipsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def membership_params
-    params.expect(membership: [:beer_club_id, :user_id])
+    params.expect(membership: [:beer_club_id, :user_id, :confirmed])
   end
 end

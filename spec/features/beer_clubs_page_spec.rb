@@ -33,7 +33,7 @@ describe "Beer Clubs page" do
 
     describe "when user has joined a beer club" do
       let!(:user) { FactoryBot.create :user }
-      let!(:membership) { FactoryBot.create :membership, beer_club: BeerClub.first, user: user }
+      let!(:membership) { FactoryBot.create :membership, beer_club: BeerClub.first, user: user, confirmed: true }
 
       it "beer clubs show the users who have joined the club" do
         click_link "club1"
@@ -43,7 +43,5 @@ describe "Beer Clubs page" do
         expect(page).to have_content "#{user.username}"
       end
     end
-
-
   end
 end

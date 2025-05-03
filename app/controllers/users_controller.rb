@@ -27,6 +27,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        # Kirjataan käyttäjä heti sisään
+        session[:user_id] = @user.id
         # Vastausta odotetaan HTML muodossa
         format.html { redirect_to @user, notice: "User was successfully created." }
         # Vastausta odotetaan JSON muodossa, eli pyyntö tehty vaikka toiselta sivulta JavaScriptillä

@@ -34,6 +34,7 @@ FactoryBot.define do
   end
 
   factory :membership do
+    confirmed { false }
     beer_club
     user
   end
