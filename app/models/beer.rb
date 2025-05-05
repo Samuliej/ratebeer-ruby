@@ -21,12 +21,6 @@ class Beer < ApplicationRecord
     calculate_average
   end
 
-  def average
-    return 0 if ratings.empty?
-
-    ratings.sum(&:score) / ratings.count.to_f
-  end
-
   def to_s
     "#{name} #{style.name}, by #{brewery.name}"
   end

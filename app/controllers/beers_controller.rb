@@ -14,7 +14,7 @@ class BeersController < ApplicationController
              when "style"   then Beer.includes(:brewery, :ratings, :style).order("style.name")
              when "rating"  then Beer.includes(:brewery, :ratings, :style).sort_by(&:average_rating).reverse
              else
-               Beer.all.includes(:brewery, :rating, :style)
+               Beer.all.includes(:brewery, :ratings, :style)
              end
   end
 
@@ -80,7 +80,7 @@ class BeersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_beer
-    @beer = Beer.find(params.expect(:id))
+    @beer = Beer.includes(:brewery, :style, :ratings).find(params.expect(:id))
   end
 
   # Unohdin että tein tehtävän 10 myös

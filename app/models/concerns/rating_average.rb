@@ -6,8 +6,9 @@ module RatingAverage
 
     all_ratings = @ratings.map(&:score)
     all_score_sum = all_ratings.sum
+    rating_count = all_ratings.size
 
-    round((all_score_sum / @ratings.count.to_f))
+    round((all_score_sum / rating_count.to_f))
   end
 
   def best_rated(record)
