@@ -1,5 +1,6 @@
 class RatingsController < ApplicationController
   include RatingAverage
+  before_action :expire_breweries, only: %i[create destroy]
 
   # Index renderöi suorituksen lopuksi oikeassa
   # hakemistossa olevan index-nimisen näkymän

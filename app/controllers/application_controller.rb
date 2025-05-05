@@ -36,4 +36,10 @@ class ApplicationController < ActionController::Base
   def top(record, number)
     record.all.sort_by(&:average_rating).reverse.take(number)
   end
+
+  private
+
+  def expire_breweries
+    expire_fragment("brewerylist")
+  end
 end

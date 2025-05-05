@@ -3,18 +3,21 @@ class BeersController < ApplicationController
   before_action :set_brewery_and_styles, only: %i[new edit update create]
   before_action :ensure_that_signed_in, except: [:index, :show, :list]
   before_action :ensure_that_user_is_admin, only: %i[destroy]
+  before_action :expire_beerlist, only: %i[edit update create destroy]
+  before_action :expire_breweries, only: %i[create destroy]
 
   # GET /beers or /beers.json
   def index
-    order = params[:order] || "name"
+    @order = params[:order] || 'name'
+    return if request.format.html? && fragment_exist?("beerlist-#{@order}")
 
-    @beers = case order
-             when "name"    then Beer.all.includes(:brewery, :ratings, :style).order(:name)
-             when "brewery" then Beer.includes(:brewery, :ratings, :style).order("breweries.name")
-             when "style"   then Beer.includes(:brewery, :ratings, :style).order("style.name")
-             when "rating"  then Beer.includes(:brewery, :ratings, :style).sort_by(&:average_rating).reverse
+    @beers = Beer.includes(:brewery, :ratings, :style).all
+    @beers = case @order
+             when 'name' then @beers.sort_by(&:name)
+             when 'brewery' then @beers.sort_by{ |b| b.brewery.name }
+             when 'style' then @beers.sort_by{ |b| b.style.name }
              else
-               Beer.all.includes(:brewery, :ratings, :style)
+               @beers
              end
   end
 
@@ -88,6 +91,10 @@ class BeersController < ApplicationController
   def set_brewery_and_styles
     @breweries = Brewery.all
     @styles = Style.all
+  end
+
+  def expire_beerlist
+    %w[beerlist-name beerlist-brewery beerlist-style].each{ |f| expire_fragment(f) }
   end
 
   # Only allow a list of trusted parameters through.

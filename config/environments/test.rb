@@ -22,6 +22,9 @@ Rails.application.configure do
   config.consider_all_requests_local = true
   config.cache_store = :memory_store
 
+  # Cache pois testeissä
+  config.action_controller.perform_caching = false
+
   # Render exception templates for rescuable exceptions and raise for other exceptions.
   config.action_dispatch.show_exceptions = :rescuable
 
