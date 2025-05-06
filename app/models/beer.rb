@@ -1,5 +1,6 @@
 class Beer < ApplicationRecord
   include RatingAverage
+  extend Top
 
   belongs_to :brewery, touch: true
   # Merkitään ratingit riippuvaisiksi oluista

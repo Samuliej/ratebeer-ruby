@@ -1,7 +1,6 @@
 require "rails_helper"
 
 include Helpers
-include TopHelper
 
 describe "Rating Page" do
   let!(:brewery) { FactoryBot.create :brewery, name: "Koff" }
@@ -17,9 +16,9 @@ describe "Rating Page" do
 
   before :each do
     # Kirjoitetaan ensin cacheen että on mitään näytettävää
-    Rails.cache.write("beer_top_3", top(Beer, 3))
-    Rails.cache.write("brewery_top_3", top(Brewery, 3))
-    Rails.cache.write("style_top_3", top(Style, 3))
+    Rails.cache.write("beer_top_3", Beer.top(3))
+    Rails.cache.write("brewery_top_3", Brewery.top(3))
+    Rails.cache.write("style_top_3", Style.top(3))
 
     sign_in(username: "Pekka", password: "F00bar%")
   end

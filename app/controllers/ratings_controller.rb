@@ -1,6 +1,5 @@
 class RatingsController < ApplicationController
   include RatingAverage
-  include TopHelper
   before_action :expire_breweries, only: %i[create destroy]
   before_action :expire_beerlist, only: %i[create destroy]
 

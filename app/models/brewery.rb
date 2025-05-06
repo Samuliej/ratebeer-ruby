@@ -1,4 +1,6 @@
 class Brewery < ApplicationRecord
+  extend Top
+
   MINIMUM_YEAR = 1040
 
   has_many :beers, dependent: :destroy

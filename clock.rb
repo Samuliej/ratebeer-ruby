@@ -6,6 +6,6 @@ require 'clockwork'
 # toimii Fly.io:ssa erillisessä worker machinessa.
 module Clockwork
   every(1.minute, 'refresh_cache') do
-    TestJob.perform_async
+    RefreshRatingPageCache.perform_async
   end
 end
