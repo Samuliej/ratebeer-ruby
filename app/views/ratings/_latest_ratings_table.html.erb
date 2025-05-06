@@ -8,7 +8,7 @@
   </tr>
   </thead>
   <tbody>
-  <% Rating.latest.each do |rating| %>
+  <% Rating.includes(:beer, :user).latest.each do |rating| %>
     <tr>
       <td>
         <%= link_to rating.beer.name, rating.beer %>

@@ -2,7 +2,7 @@
   <div class="row mb-3">
     <div class="col-md-12 text-center">
       <h1>Ratings</h1>
-      <p>Ratings count: <%= @ratings.count %></p>
+      <p>Ratings count: <%= Rating.count %></p>
       <% if current_user %>
         <%= link_to 'Create a new rating', new_rating_path, class: "btn btn-primary" %>
       <% end %>

@@ -33,10 +33,6 @@ class ApplicationController < ActionController::Base
     beer_club.unconfirmed_users.include? current_user
   end
 
-  def top(record, number)
-    record.all.sort_by(&:average_rating).reverse.take(number)
-  end
-
   private
 
   def expire_breweries

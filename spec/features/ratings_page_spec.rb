@@ -1,6 +1,7 @@
 require "rails_helper"
 
 include Helpers
+include TopHelper
 
 describe "Rating Page" do
   let!(:brewery) { FactoryBot.create :brewery, name: "Koff" }
@@ -15,6 +16,11 @@ describe "Rating Page" do
   let!(:rating3) { FactoryBot.create :rating, beer: beer3, user: user2 }
 
   before :each do
+    # Kirjoitetaan ensin cacheen että on mitään näytettävää
+    Rails.cache.write("beer_top_3", top(Beer, 3))
+    Rails.cache.write("brewery_top_3", top(Brewery, 3))
+    Rails.cache.write("style_top_3", top(Style, 3))
+
     sign_in(username: "Pekka", password: "F00bar%")
   end
 
@@ -56,12 +62,4 @@ describe "Rating Page" do
 
     expect(page).not_to have_content beer3.name
   end
-
-  # it "trying to get accepting alerts to work" do
-  #   visit user_path(user)
-  #
-  #   accept_alert do
-  #     click_on "Destroy", match: :first
-  #   end
-  # end
 end

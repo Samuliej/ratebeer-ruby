@@ -1,16 +1,20 @@
 class RatingsController < ApplicationController
   include RatingAverage
+  include TopHelper
   before_action :expire_breweries, only: %i[create destroy]
   before_action :expire_beerlist, only: %i[create destroy]
 
   # Index renderöi suorituksen lopuksi oikeassa
   # hakemistossa olevan index-nimisen näkymän
   # render :index
+
+  # Workerissa laitetaan asynkronisesti minuutin välein
+  # cacheen kaikki parhaimpien arvot
+  # Toimii deployattuna jossa worker erillisessä VM:ssä.
   def index
-    @ratings = Rating.all.includes(:beer)
-    @top_beers = top(Beer, 3)
-    @top_breweries = top(Brewery, 3)
-    @top_styles = top(Style, 3)
+    @top_beers = Rails.cache.read("beer_top_3")
+    @top_breweries = Rails.cache.read("brewery_top_3")
+    @top_styles = Rails.cache.read("style_top_3")
   end
 
   # Luodaan Rating olio, ja välitetään se instanssimuuttujan
