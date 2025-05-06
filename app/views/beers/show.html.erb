@@ -1,6 +1,8 @@
 <div class="row d-flex align-items-center justify-content-center show-container">
   <div class="col-md-8">
-    <%= render @beer %>
+    <% cache @beer do %>
+      <%= render @beer %>
+    <% end %>
 
     <% if current_user %>
       <h4>Give a rating</h4>

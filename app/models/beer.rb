@@ -1,7 +1,7 @@
 class Beer < ApplicationRecord
   include RatingAverage
 
-  belongs_to :brewery
+  belongs_to :brewery, touch: true
   # Merkitään ratingit riippuvaisiksi oluista
   # poistaessa oluen, poistuu myös ratingit.
   # Sain konsolista poistettua kaikki orvot kivalla onelinerilla:

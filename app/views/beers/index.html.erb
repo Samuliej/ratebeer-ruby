@@ -8,7 +8,7 @@
   <% cache "beerlist-#{@order}", skip_digest: true do %>
     <p>Number of beers: <%= @beers.size %></p>
 
-    <div id="beers">
+    <div id="beers" class="restricted-table-container">
       <table class="table table-striped table-hover">
         <thead>
         <tr>

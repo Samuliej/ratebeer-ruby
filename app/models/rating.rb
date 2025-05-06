@@ -1,5 +1,7 @@
 class Rating < ApplicationRecord
-  belongs_to :beer
+  # Reittauksen syntyessä, muuttuessa tai tuhoutuessa,
+  # samalla "kosketetaan" reittaukseen liittyvää olutta
+  belongs_to :beer, touch: true
   belongs_to :user
 
   scope :latest, -> { order(created_at: :desc).limit(5) }

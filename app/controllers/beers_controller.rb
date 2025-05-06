@@ -93,10 +93,6 @@ class BeersController < ApplicationController
     @styles = Style.all
   end
 
-  def expire_beerlist
-    %w[beerlist-name beerlist-brewery beerlist-style].each{ |f| expire_fragment(f) }
-  end
-
   # Only allow a list of trusted parameters through.
   def beer_params
     params.expect(beer: [:name, :style_id, :brewery_id])
