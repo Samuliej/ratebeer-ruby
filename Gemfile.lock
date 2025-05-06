@@ -111,7 +111,6 @@ GEM
     cgi (0.4.2)
     childprocess (5.1.0)
       logger (~> 1.5)
-    cliver (0.3.2)
     clockwork (3.0.2)
       activesupport
       tzinfo
@@ -123,9 +122,9 @@ GEM
       rexml
     crass (1.0.6)
     csv (3.3.3)
-    cuprite (0.9)
-      capybara (>= 2.1, < 4)
-      ferrum (~> 0.7.0)
+    cuprite (0.15.1)
+      capybara (~> 3.0)
+      ferrum (~> 0.15.0)
     date (3.4.1)
     debug (1.10.0)
       irb (~> 1.10)
@@ -149,11 +148,11 @@ GEM
     factory_bot_rails (6.4.4)
       factory_bot (~> 6.5)
       railties (>= 5.0.0)
-    ferrum (0.7)
-      addressable (~> 2.6)
-      cliver (~> 0.3)
+    ferrum (0.15)
+      addressable (~> 2.5)
       concurrent-ruby (~> 1.1)
-      websocket-driver (>= 0.6, < 0.8)
+      webrick (~> 1.7)
+      websocket-driver (~> 0.7)
     ffi (1.17.2-x86_64-linux-gnu)
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
@@ -256,7 +255,7 @@ GEM
     psych (5.2.3)
       date
       stringio
-    public_suffix (6.0.1)
+    public_suffix (6.0.2)
     puma (6.6.0)
       nio4r (~> 2.0)
     raabro (1.4.0)
@@ -440,6 +439,7 @@ GEM
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
+    webrick (1.9.1)
     websocket (1.2.11)
     websocket-driver (0.7.7)
       base64
