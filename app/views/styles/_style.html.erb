@@ -9,13 +9,22 @@
 
   <% unless @style.beers.empty? %>
     <h3>Beers</h3>
-    <ul>
-      <%  @style.beers.each do |beer| %>
-        <li>
-          <%= link_to beer.name, beer %>
-        </li>
-      <% end %>
-    </ul>
+    <div class="restricted-table-container">
+      <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+          <th>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @style.beers.each do |beer| %>
+          <tr>
+            <td><%= link_to beer.name, beer %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
   <% end %>
 
 </div>

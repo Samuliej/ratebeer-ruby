@@ -1,33 +1,59 @@
 
-<div class="centered-page-container">
-  <h1>Beer places search</h1>
+<div>
+  <div class="row">
+    <div class="col-sm-6">
+      <h1>Beer places search</h1>
 
-  <%= form_with url: places_path, method: :post do |form| %>
-    <div class="mb-3">
-      <%= form.label :city, class: "form-label" %>
-      <%= form.text_field :city, class: "form-control" %>
-    </div>
-    <div class="mb-3">
-      <%= form.submit "Search", class: "btn btn-primary" %>
-    </div>
-  <% end %>
-
-  <% if @weather && @weather.temperature.present? %>
-    <h3>Weather in <%= @city %></h3>
-    <p>Temperature: <%= @weather&.temperature %> Celsius</p>
-    <img src="<%= @weather&.weather_icons&.first %>" alt="image showcasing weather">
-    <p><%= @weather&.weather_descriptions&.join(", ") %></p>
-    <p>Wind: <%= @weather&.wind_speed %>m/s</p>
-  <% elsif @places.present? %>
-    <p>No weather found in <%= @city %>, check for typos.</p>
-  <% end %>
-
-  <% if @places %>
-    <h2>Beer places in <%= @city %></h2>
-    <div>
-      <% @places.each do |place| %>
-        <%= render "place", place: place %>
+      <%= form_with url: places_path, method: :post do |form| %>
+        <div class="mb-3">
+          <%= form.label :city, class: "form-label" %>
+          <%= form.text_field :city, class: "form-control" %>
+        </div>
+        <div class="mb-3">
+          <%= form.submit "Search", class: "btn btn-primary" %>
+        </div>
       <% end %>
     </div>
-<% end %>
+    <div class="col-sm-6">
+      <% if @weather && @weather.temperature.present? %>
+        <h3>Weather in <%= @city %></h3>
+        <p>Temperature: <%= @weather&.temperature %> Celsius</p>
+        <img src="<%= @weather&.weather_icons&.first %>" alt="image showcasing weather">
+        <p><%= @weather&.weather_descriptions&.join(", ") %></p>
+        <p>Wind: <%= @weather&.wind_speed %>m/s</p>
+      <% elsif @places.present? %>
+        <p>No weather found in <%= @city %>, check for typos.</p>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <% if @places %>
+      <h2>Beer places in <%= @city %></h2>
+      <div class="restricted-table-container">
+        <table class="table table-striped table-hover">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Serving</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @places.each do |place| %>
+            <tr>
+              <td><%= link_to place.name, place_path(place.place_id), target: :_blank %></td>
+              <td><%= place.formatted_address %></td>
+              <% if place.opening_hours %>
+                <%= content_tag(:td, "Open now!") if place.opening_hours['open_now'] %>
+                <%= content_tag(:td, "Closed") unless place.opening_hours['open_now'] %>
+              <% else %>
+                <td>No info</td>
+              <% end %>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+  </div>
 </div>

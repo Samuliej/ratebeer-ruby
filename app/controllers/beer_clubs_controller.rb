@@ -7,12 +7,13 @@ class BeerClubsController < ApplicationController
   def index
     order = params[:order] || "name"
 
+    @beer_clubs = BeerClub.all
     @beer_clubs = case order
-                  when "name" then BeerClub.order(:name)
-                  when "founded" then BeerClub.order(:founded).reverse
-                  when "city" then BeerClub.order(:city)
+                  when "name" then @beer_clubs.sort_by(&:name)
+                  when "founded" then @beer_clubs.sort_by(&:founded).reverse
+                  when "city" then @beer_clubs.sort_by(&:city)
                   else
-                    BeerClub.all
+                    @beer_clubs
                   end
   end
 
