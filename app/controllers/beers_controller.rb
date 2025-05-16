@@ -5,16 +5,11 @@ class BeersController < ApplicationController
   before_action :ensure_that_user_is_admin, only: %i[destroy]
   before_action :expire_beerlist, only: %i[edit update create destroy]
   before_action :expire_breweries, only: %i[create destroy]
+  before_action :set_attributes, only: %i[index]
   PAGE_SIZE = 15
 
   # GET /beers or /beers.json
   def index
-    @order = params[:order] || 'name'
-    @page = params[:page]&.to_i || 1
-    @last_page = (Beer.count / PAGE_SIZE.to_f).ceil
-    offset = (@page - 1) * PAGE_SIZE
-
-    @beers_size = Beer.count
     @beers = case @order
              when "name" then Beer.includes(:style, :brewery, :ratings).order(:name)
              when "brewery" then Beer.joins(:brewery).order("breweries.name")
@@ -22,7 +17,7 @@ class BeersController < ApplicationController
              when "rating" then Beer.left_joins(:ratings).select("beers.*, avg(ratings.score)").group("beers.id").order("avg(ratings.score) desc")
              else
                Beer.order(:name)
-             end.limit(PAGE_SIZE).offset(offset)
+             end.limit(PAGE_SIZE).offset(@offset)
 
     if turbo_frame_request?
       render partial: "beer_list",
@@ -91,6 +86,14 @@ class BeersController < ApplicationController
   end
 
   private
+
+  def set_attributes
+    @order = params[:order] || 'name'
+    @page = params[:page]&.to_i || 1
+    @last_page = (Beer.count / PAGE_SIZE.to_f).ceil
+    @offset = (@page - 1) * PAGE_SIZE
+    @beers_size = Beer.count
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_beer
