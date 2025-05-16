@@ -43,7 +43,7 @@ gem "httparty"
 gem "securerandom"
 
 gem 'activerecord-session_store'
-gem 'bootstrap', '~> 5.0'
+gem 'bootstrap', '~> 5.3'
 gem 'sucker_punch', '~> 3.0'
 
 gem 'clockwork'
