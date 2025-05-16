@@ -5,19 +5,24 @@ class BeersController < ApplicationController
   before_action :ensure_that_user_is_admin, only: %i[destroy]
   before_action :expire_beerlist, only: %i[edit update create destroy]
   before_action :expire_breweries, only: %i[create destroy]
+  PAGE_SIZE = 15
 
   # GET /beers or /beers.json
   def index
     @order = params[:order] || 'name'
+    @page = params[:page]&.to_i || 1
+    @last_page = (Beer.count / PAGE_SIZE.to_f).ceil
+    offset = (@page - 1) * PAGE_SIZE
 
-    @beers = Beer.includes(:brewery, :ratings, :style).all
+    @beers_size = Beer.count
     @beers = case @order
-             when 'name' then @beers.sort_by(&:name)
-             when 'brewery' then @beers.sort_by{ |b| b.brewery.name }
-             when 'style' then @beers.sort_by{ |b| b.style.name }
+             when "name" then Beer.includes(:style, :brewery, :ratings).order(:name)
+             when "brewery" then Beer.joins(:brewery).order("breweries.name")
+             when "style" then Beer.joins(:style).order("styles.name")
+             when "rating" then Beer.left_joins(:ratings).select("beers.*, avg(ratings.score)").group("beers.id").order("avg(ratings.score) desc")
              else
-               @beers
-             end
+               Beer.order(:name)
+             end.limit(PAGE_SIZE).offset(offset)
   end
 
   def list

@@ -31,5 +31,11 @@
       <%= render "latest_ratings_table" %>
     </div>
   </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h4>All ratings </h4>
+      <%= render "all_ratings_table", ratings: @all_ratings, page: @page, last_page: @last_page %>
+    </div>
+  </div>
 
 </div>

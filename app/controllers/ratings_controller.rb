@@ -2,6 +2,7 @@ class RatingsController < ApplicationController
   include RatingAverage
   before_action :expire_breweries, only: %i[create destroy]
   before_action :expire_beerlist, only: %i[create destroy]
+  PAGE_SIZE = 10
 
   # Index renderöi suorituksen lopuksi oikeassa
   # hakemistossa olevan index-nimisen näkymän
@@ -14,6 +15,17 @@ class RatingsController < ApplicationController
     @top_beers = Beer.top 3
     @top_breweries = Brewery.top 3
     @top_styles = Style.top 3
+
+    @order = params[:order] != "false"
+    @page = params[:page]&.to_i || 1
+    @last_page = (Rating.count / PAGE_SIZE.to_f).ceil
+    offset = (@page - 1) * PAGE_SIZE
+
+    @all_ratings = if @order
+                     Rating.includes(:user, :beer).order(created_at: :desc)
+                   else
+                     Rating.includes(:user, :beer).order(created_at: :asc)
+                   end.limit(PAGE_SIZE).offset(offset)
   end
 
   # Luodaan Rating olio, ja välitetään se instanssimuuttujan
