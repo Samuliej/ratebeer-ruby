@@ -23,6 +23,13 @@ class BeersController < ApplicationController
              else
                Beer.order(:name)
              end.limit(PAGE_SIZE).offset(offset)
+
+    if turbo_frame_request?
+      render partial: "beer_list",
+             locals: { beers: @beers, page: @page, order: @order, last_page: @last_page }
+    else
+      render :index
+    end
   end
 
   def list

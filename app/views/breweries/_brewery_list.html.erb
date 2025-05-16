@@ -1,0 +1,17 @@
+<div id="breweries">
+  <div class="row">
+    <div class="col-sm-12">
+      <%= turbo_frame_tag @active_breweries_tag, src: active_breweries_path do %>
+        loading breweries...
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <%= turbo_frame_tag @retired_breweries_tag, src: retired_breweries_path do %>
+        loading breweries...
+      <% end %>
+    </div>
+  </div>
+</div>

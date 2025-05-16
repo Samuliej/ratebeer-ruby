@@ -5,45 +5,9 @@
 
   <%= link_to 'New beer', new_beer_path, class: "btn btn-primary" if current_user %>
 
-    <p>Number of beers: <%= @beers_size %></p>
+  <p>Number of beers: <%= @beers_size %></p>
 
-    <div id="beers">
-      <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-          <th scope="col"><%= link_to "Name", beers_path(page: @page, order: "name") %></th>
-          <th scope="col"><%= link_to "Style", beers_path(page: @page, order: "style") %></th>
-          <th scope="col"><%= link_to "Brewery", beers_path(page: @page, order: "brewery") %></th>
-          <th scope="col"><%= link_to "Rating", beers_path(page: @page, order: "rating") %></th>
-        </tr>
-        </thead>
-        <tbody>
-        <% @beers.each do |beer| %>
-          <tr>
-            <td><%= link_to beer.name, beer %></td>
-            <td><%= link_to beer.style.name, beer.style %></td>
-            <td><%= link_to beer.brewery.name, beer.brewery %></td>
-            <td><% if beer.ratings.empty? %>
-                0 / 50
-              <% else %>
-                <%= beer.average_rating %> / 50
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-          <tr>
-            <td colspan="2" class="text-center">
-              <% unless @page == 1 %>
-                <%= link_to "<<< Previous page", beers_path(page: @page - 1, order: @order) %>
-              <% end %>
-            </td>
-            <td colspan="2" class="text-center">
-              <% unless @page == @last_page %>
-                <%= link_to "Next page >>>", beers_path(page: @page + 1, order: @order) %>
-              <% end %>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div id="beers">
+    <%= render "beer_list", beers: @beers, page: @page, order: @order, last_page: @last_page %>
+  </div>
 </div>

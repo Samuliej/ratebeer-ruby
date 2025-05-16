@@ -15,11 +15,6 @@ describe "Rating Page" do
   let!(:rating3) { FactoryBot.create :rating, beer: beer3, user: user2 }
 
   before :each do
-    # Kirjoitetaan ensin cacheen että on mitään näytettävää
-    Rails.cache.write("beer_top_3", Beer.top(3))
-    Rails.cache.write("brewery_top_3", Brewery.top(3))
-    Rails.cache.write("style_top_3", Style.top(3))
-
     sign_in(username: "Pekka", password: "F00bar%")
   end
 

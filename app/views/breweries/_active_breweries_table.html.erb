@@ -1,0 +1,5 @@
+<%= turbo_frame_tag active_tag, data: { turbo_action: "advance" } do %>
+  <h2>Active breweries</h2>
+  <p>Number of active breweries: <%= active_breweries.count %></p>
+  <%= render "table", breweries: active_breweries %>
+<% end %>

@@ -1,5 +1,7 @@
 class BreweriesController < ApplicationController
   before_action :set_brewery, only: %i[show edit update destroy]
+  before_action :set_active_breweries, only: %i[active]
+  before_action :set_retired_breweries, only: %i[retired]
   before_action :ensure_that_signed_in, except: [:index, :show]
   before_action :ensure_that_user_is_admin, only: %i[destroy]
   before_action :expire_breweries, only: %i[edit update destroy create]
@@ -7,11 +9,11 @@ class BreweriesController < ApplicationController
   # GET /breweries or /breweries.json
   def index
     if params[:format] == "json"
-      @breweries = Brewery.all.includes(:beers)
-    else
-      @active_breweries ||= Brewery.active.includes(:beers)
-      @retired_breweries ||= Brewery.retired.includes(:beers)
+      @breweries = Brewery.includes(:beers).all
     end
+
+    @active_breweries_tag = "active_brewery_list_frame"
+    @retired_breweries_tag = "retired_brewery_list_frame"
   end
 
   # GET /breweries/1 or /breweries/1.json
@@ -28,6 +30,14 @@ class BreweriesController < ApplicationController
 
   # GET /breweries/1/edit
   def edit
+  end
+
+  def active
+    render partial: "active_breweries_table", locals: { active_breweries: @active_breweries, active_tag: "active_brewery_list_frame" }
+  end
+
+  def retired
+    render partial: "retired_breweries_table", locals: { retired_breweries: @retired_breweries, retired_tag: "retired_brewery_list_frame" }
   end
 
   # POST /breweries or /breweries.json
@@ -82,6 +92,14 @@ class BreweriesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_brewery
     @brewery = Brewery.find(params.expect(:id))
+  end
+
+  def set_active_breweries
+    @active_breweries = Brewery.includes(:beers).active
+  end
+
+  def set_retired_breweries
+    @retired_breweries = Brewery.includes(:beers).retired
   end
 
   # Only allow a list of trusted parameters through.

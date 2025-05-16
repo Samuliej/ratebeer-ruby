@@ -3,10 +3,13 @@ Rails.application.routes.draw do
   resources :beer_clubs
   resources :users do
     put 'toggle_disabled', on: :member
+    get 'recommendation', on: :member
   end
   resources :beers
   resources :breweries do
     post 'toggle_activity', on: :member
+    get 'active', on: :collection
+    get 'retired', on: :collection
   end
   resources :beer_clubs
   resources :styles do
