@@ -83,7 +83,7 @@ end
 group :development, :test do
   gem "sqlite3"
   gem "pry-byebug"
-  gem "rspec-rails", "~> 7.1.1"
+  gem "rspec-rails", "~> 8.0.0"
 end
 
 group :production do
