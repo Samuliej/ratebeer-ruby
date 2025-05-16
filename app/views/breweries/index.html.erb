@@ -4,14 +4,12 @@
   <%= link_to "New brewery", new_brewery_path, class: "btn btn-primary" %>
 <% end %>
 
-<% cache "brewerylist", skip_digest: true do %>
-  <h2>Active breweries</h2>
-  <p> Number of active breweries: <%= @active_breweries.count %> </p>
+<h2>Active breweries</h2>
+<p> Number of active breweries: <%= @active_breweries.count %> </p>
 
-  <%= render "table", breweries: @active_breweries %>
+<%= render "table", breweries: @active_breweries %>
 
-  <h2 class="mt-3">Retired breweries</h2>
-  <p>Number of retired breweries: <%= @retired_breweries.count %></p>
+<h2 class="mt-3">Retired breweries</h2>
+<p>Number of retired breweries: <%= @retired_breweries.count %></p>
 
-  <%= render "table", breweries: @retired_breweries %>
-<% end %>
+<%= render "table", breweries: @retired_breweries %>

@@ -1,13 +1,20 @@
 class StylesController < ApplicationController
   before_action :set_style, only: %i[show edit update destroy]
-  before_action :ensure_that_signed_in, except: [:index, :show]
+  before_action :ensure_that_signed_in, except: [:index, :show, :about]
   before_action :ensure_that_user_is_admin, only: %i[destroy]
 
   def index
     @styles = Style.all
   end
 
+  def about
+    render partial: 'about'
+  end
+
   def show
+    return unless turbo_frame_request?
+
+    render partial: 'details', locals: { style: @style }
   end
 
   def new

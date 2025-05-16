@@ -2,10 +2,8 @@ require_relative 'config/boot'
 require_relative 'config/environment'
 require 'clockwork'
 
-# Suorittaa minuutin välein cachen refreshauksen ratings sivua varten
-# toimii Fly.io:ssa erillisessä worker machinessa.
 module Clockwork
-  every(12.hour, 'refresh_cache') do
+  every(48.hour, 'refresh_cache') do
     RefreshRatingPageCache.perform_async
   end
 end

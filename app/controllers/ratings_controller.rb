@@ -11,9 +11,9 @@ class RatingsController < ApplicationController
   # cacheen kaikki parhaimpien arvot
   # Toimii deployattuna jossa worker erillisessä VM:ssä.
   def index
-    @top_beers = Rails.cache.read("beer_top_3")
-    @top_breweries = Rails.cache.read("brewery_top_3")
-    @top_styles = Rails.cache.read("style_top_3")
+    @top_beers = Beer.top 3
+    @top_breweries = Brewery.top 3
+    @top_styles = Style.top 3
   end
 
   # Luodaan Rating olio, ja välitetään se instanssimuuttujan
@@ -23,6 +23,13 @@ class RatingsController < ApplicationController
     # Luodaan oluista instanssimuuttuja, jotta
     # ratingin "tiedossa" on kaikki oluet
     @beers = Beer.all
+  end
+
+  def show
+    if turbo_frame_request?
+      @rating = Rating.find(params[:id])
+      render partial: 'rating_details', locals: { rating: @rating }
+    end
   end
 
   def create

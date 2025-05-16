@@ -8,22 +8,19 @@
 
   <%= link_to 'New style', new_style_path, class: "btn btn-primary" if current_user %>
 
-  <div class="restricted-table-container">
-    <table class="table table-striped table-hover">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Beers</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @styles.each do |style| %>
-        <tr>
-          <td><%= link_to style.name, style %></td>
-          <td><%= style.beers.count %></td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
+  <div id="styles">
+    <%= turbo_frame_tag "styles" do %>
+      <% @styles.each do |style| %>
+        <%= link_to style.name, style, data: { turbo_frame: "style_details" } %>
+      <% end %>
+    <% end %>
+
+    <%= turbo_frame_tag "style_details" do %>
+    <% end %>
   </div>
+
 </div>
+
+<%= turbo_frame_tag "about_style" do %>
+  <%= link_to "about", about_styles_path %>
+<% end %>

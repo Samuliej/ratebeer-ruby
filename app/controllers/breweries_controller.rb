@@ -9,8 +9,6 @@ class BreweriesController < ApplicationController
     if params[:format] == "json"
       @breweries = Brewery.all.includes(:beers)
     else
-      return if request.format.html? && fragment_exist?("brewerylist")
-
       @active_breweries ||= Brewery.active.includes(:beers)
       @retired_breweries ||= Brewery.retired.includes(:beers)
     end

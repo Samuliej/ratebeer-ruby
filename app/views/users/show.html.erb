@@ -54,16 +54,22 @@
           </thead>
 
           <tbody>
-          <% @user.ratings.each do |rating| %>
-            <tr>
-              <td><%= link_to rating.beer.name, rating.beer %></td>
-              <td><%= rating.score %></td>
-              <td>
-                <% if rating&.user&.id == current_user&.id %>
-                  <%= link_to 'Delete', rating, data: { "turbo-method": :delete, "turbo-confirm": 'Are you sure?' }, class: "btn btn-danger btn-xs" %>
-                <% end %>
-              </td>
-            </tr>
+          <%= turbo_frame_tag "user_ratings" do %>
+            <% @user.ratings.each do |rating| %>
+              <tr>
+                <td>
+                  <%= link_to rating.beer.name, rating, data: { turbo_frame: "rating_details_#{rating.id}" } %>
+                  <%= turbo_frame_tag "rating_details_#{rating.id}" do %>
+                  <% end %>
+                </td>
+                <td><%= rating.score %></td>
+                <td>
+                  <% if rating&.user&.id == current_user&.id %>
+                    <%= link_to 'Delete', rating, data: { "turbo-method": :delete, "turbo-confirm": 'Are you sure?' }, class: "btn btn-danger btn-xs" %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
           <% end %>
           </tbody>
         </table>

@@ -9,7 +9,6 @@ class BeersController < ApplicationController
   # GET /beers or /beers.json
   def index
     @order = params[:order] || 'name'
-    return if request.format.html? && fragment_exist?("beerlist-#{@order}")
 
     @beers = Beer.includes(:brewery, :ratings, :style).all
     @beers = case @order

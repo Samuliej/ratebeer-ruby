@@ -9,7 +9,9 @@ Rails.application.routes.draw do
     post 'toggle_activity', on: :member
   end
   resources :beer_clubs
-  resources :styles
+  resources :styles do
+    get 'about', on: :collection
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -29,7 +31,7 @@ Rails.application.routes.draw do
   # Lisätään vaihtoehtoinen reitti käyttäjän luomiseen
   get 'signup', to: 'users#new'
 
-  resources :ratings, only: [ :index, :new, :create, :destroy ]
+  resources :ratings, only: [ :index, :new, :create, :destroy, :show ]
 
   # Yksikössä, eli esimerkiksi kirjautumissivun osoite on nyt session/new
   resource :session, only: [:new, :create, :destroy]

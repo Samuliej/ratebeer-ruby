@@ -17,7 +17,6 @@ console_command = '/rails/bin/rails console'
 
 [processes]
   app = './bin/rails server'
-  worker = "bundle exec clockwork clock.rb"
 
 [http_service]
   internal_port = 8080

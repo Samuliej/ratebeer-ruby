@@ -44,12 +44,9 @@ gem "securerandom"
 
 gem 'activerecord-session_store'
 gem 'bootstrap', '~> 5.0'
-# gem 'cuprite', '~> 0.9.0'
-gem 'rack-mini-profiler'
 gem 'sucker_punch', '~> 3.0'
 
 gem 'clockwork'
-
 
 
 group :development, :test do
