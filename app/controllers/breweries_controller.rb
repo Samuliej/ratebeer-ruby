@@ -48,7 +48,10 @@ class BreweriesController < ApplicationController
       if @brewery.save
         format.turbo_stream {
           status = @brewery.active? ? "active" : "retired"
-          render turbo_stream: turbo_stream.append("#{status}_brewery_rows", partial: "brewery_row", locals: { brewery: @brewery })
+          render turbo_stream: [
+            turbo_stream.append("#{status}_brewery_rows", partial: "brewery_row", locals: { brewery: @brewery }),
+            turbo_stream.replace("#{status}_brewery_count", partial: "brewery_count", locals: { status: status })
+          ]
         }
         format.html { redirect_to @brewery, notice: I18n.t('notices.brewery_created') }
         format.json { render :show, status: :created, location: @brewery }
@@ -78,7 +81,12 @@ class BreweriesController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream {
-        render turbo_stream: turbo_stream.remove(@brewery)
+        status = @brewery.active? ? "active" : "retired"
+
+        render turbo_stream: [
+          turbo_stream.remove(@brewery),
+          turbo_stream.replace("#{status}_brewery_count", partial: "brewery_count", locals: { status: status })
+        ]
       }
       format.html { redirect_to breweries_path, status: :see_other, notice: I18n.t('notices.brewery_destroyed') }
       format.json { head :no_content }

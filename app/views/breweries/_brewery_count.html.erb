@@ -1,0 +1,4 @@
+<div id="<%= status %>_brewery_count">
+  <% count = Brewery.where(active: (status == "active")).count %>
+  <p>Number of <%= status %> breweries: <%= count %></p>
+</div>
