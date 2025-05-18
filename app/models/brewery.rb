@@ -35,17 +35,24 @@ class Brewery < ApplicationRecord
   end
 
   after_create_commit do
-    target_id = if active
-                  "active_brewery_rows"
-                else
-                  "retired_brewery_rows"
-                end
+    status = ""
+    target_id = ""
+    if active
+      target_id = "active_brewery_rows"
+      status = "active"
+    else
+      target_id = "retired_brewery_rows"
+      status = "retired"
+    end
 
     # Broadcast an append action to the breweries_index channel
     broadcast_append_to "breweries_index", partial: "breweries/brewery_row", target: target_id
+    broadcast_replace_to "breweries_index", partial: "breweries/brewery_count", locals: { status: status }, target: "#{status}_brewery_count"
   end
 
   after_destroy_commit do
+    status = active ? "active" : "retired"
     broadcast_remove_to "breweries_index", target: self
+    broadcast_replace_to "breweries_index", partial: "breweries/brewery_count", locals: { status: status }, target: "#{status}_brewery_count"
   end
 end
