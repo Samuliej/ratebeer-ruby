@@ -35,7 +35,8 @@ Rails.application.routes.draw do
   # Lisätään vaihtoehtoinen reitti käyttäjän luomiseen
   get 'signup', to: 'users#new'
 
-  resources :ratings, only: [ :index, :new, :create, :destroy, :show ]
+  resources :ratings, only: [ :index, :new, :create, :show ]
+  delete 'ratings', to: 'ratings#destroy'
 
   # Yksikössä, eli esimerkiksi kirjautumissivun osoite on nyt session/new
   resource :session, only: [:new, :create, :destroy]

@@ -42,44 +42,9 @@
 
     <% unless @user.ratings.empty? %>
       <h3>Ratings</h3>
-
-      <%= turbo_frame_tag "beer_recommendation_tag", src: recommendation_user_path do %>
-        calculating the recommendation...
-      <% end %>
-
-      <div class="restricted-table-container">
-        <table class="table table-striped table-hover">
-          <thead>
-            <tr>
-              <th>Rated beer</th>
-              <th>Rating</th>
-              <th></th>
-            </tr>
-          </thead>
-
-          <tbody>
-          <%= turbo_frame_tag "user_ratings" do %>
-            <% @user.ratings.each do |rating| %>
-              <tr>
-                <td>
-                  <%= link_to rating.beer.name, rating, data: { turbo_frame: "rating_details_#{rating.id}" } %>
-                  <%= turbo_frame_tag "rating_details_#{rating.id}" do %>
-                  <% end %>
-                </td>
-                <td><%= rating.score %></td>
-                <td>
-                  <% if rating&.user&.id == current_user&.id %>
-                    <%= link_to 'Delete', rating, data: { "turbo-method": :delete, "turbo-confirm": 'Are you sure?' }, class: "btn btn-danger btn-xs" %>
-                  <% end %>
-                </td>
-              </tr>
-            <% end %>
-          <% end %>
-          </tbody>
-        </table>
-      </div>
-
+      <%= render partial: 'ratings' %>
     <% end %>
+
 
     <div class="row">
       <div class="col-md-4">

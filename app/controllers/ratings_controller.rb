@@ -63,10 +63,26 @@ class RatingsController < ApplicationController
   end
 
   def destroy
-    @rating = Rating.find(params[:id])
-    @rating.delete if current_user == @rating.user
-    redirect_to user_path(current_user), notice: "Rating deleted"
+    destroy_ids = request.body.string.split(',')
+
+    destroy_ids.each do |id|
+      rating = Rating.find(id.to_i)
+      rating.destroy if rating && current_user == rating.user
+    rescue StandardError => e
+      puts "Rating record has an error: #{e.message}"
+    end
+
+    @user = current_user
+    respond_to do |format|
+      format.html { render partial: 'users/ratings', status: :ok, user: @user }
+    end
   end
+
+  # def destroy
+  #   @rating = Rating.find(params[:id])
+  #   @rating.delete if current_user == @rating.user
+  #   redirect_to user_path(current_user), notice: "Rating deleted"
+  # end
 
   def best_beers
     best_rated(:beer)
