@@ -1,7 +1,12 @@
+<!-- Establish a websocket connection between the browser and the server -->
+<%= turbo_stream_from "breweries_index" %>
+
 <h1>Breweries</h1>
 
-<% if current_user %>
-  <%= link_to "New brewery", new_brewery_path, class: "btn btn-primary" %>
-<% end %>
+<div class="row">
+  <div class="col-sm-6">
+    <%= turbo_frame_tag "new_brewery", src: new_brewery_path if current_user %>
+  </div>
+</div>
 
 <%= render "brewery_list" %>

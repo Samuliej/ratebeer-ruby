@@ -14,4 +14,11 @@ module ApplicationHelper
   def round(number)
     number.truncate(1)
   end
+
+  def timestamp_for(timestamp)
+    content_tag(:span,
+                "#{time_ago_in_words(timestamp)} ago",
+                class: "timestamp",
+                title: timestamp.strftime("%B %e, %Y at %H:%M"))
+  end
 end

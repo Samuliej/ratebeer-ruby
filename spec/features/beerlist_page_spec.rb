@@ -9,7 +9,7 @@ style_names_sorted = style_names.sort
 beer_names_sorted = beer_names.sort
 brewery_names_sorted = brewery_names.sort
 
-describe "Beerlist page" do
+describe "Beerlist page", js: true do
   # En millään saanut seleniumilla toimimaan
   before :all do
     Capybara.register_driver :cuprite do |app|

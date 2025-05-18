@@ -6,6 +6,11 @@ module Helpers
     click_button "Log in"
   end
 
+  def sign_out(username)
+    click_link username
+    click_link "Sign out"
+  end
+
   def create_beer_with_rating(object, score, style = FactoryBot.create(:style))
     beer = FactoryBot.create(:beer, style: style)
     FactoryBot.create(:rating, beer: beer, score: score, user: object[:user] )

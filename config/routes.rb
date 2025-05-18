@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :styles do
     get 'about', on: :collection
   end
+  resources :chat_messages
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -45,4 +46,6 @@ Rails.application.routes.draw do
 
   get 'beerlist', to: 'beers#list'
   get 'brewerylist', to: 'breweries#list'
+
+  get 'chat', to: 'chat#index'
 end

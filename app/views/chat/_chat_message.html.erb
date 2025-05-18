@@ -1,0 +1,13 @@
+<div id="<%= dom_id(chat_message) %>" class="chat-message <%= 'sent-by-current-user' if chat_message.user == current_user %>">
+  <div class="message-sender">
+    <strong><%= chat_message.user.username %></strong>
+  </div>
+  <div class="message-bubble">
+    <div class="message-content">
+      <%= chat_message.content %>
+    </div>
+    <div class="message-timestamp">
+      <%= timestamp_for(chat_message.created_at) %>
+    </div>
+  </div>
+</div>

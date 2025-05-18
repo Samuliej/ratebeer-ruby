@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   include RatingAverage
+  has_many :chat_messages, dependent: :destroy
 
   MINIMUM_PASSWORD_LENGTH = 4
   PASSWORD_FORMAT = /\A

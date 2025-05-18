@@ -33,4 +33,15 @@ class Brewery < ApplicationRecord
     @ratings = ratings
     calculate_average
   end
+
+  after_create_commit do
+    target_id = if active
+                  "active_brewery_rows"
+                else
+                  "retired_brewery_rows"
+                end
+
+    # Broadcast an append action to the breweries_index channel
+    broadcast_append_to "breweries_index", partial: "breweries/brewery_row", target: target_id
+  end
 end

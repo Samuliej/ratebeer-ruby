@@ -58,6 +58,9 @@
               <li class="nav-item">
                 <%= link_to "Clubs", beer_clubs_path, class: "nav-link #{"active" if current_page?(beer_clubs_path)}" %>
               </li>
+              <li class="nav-item">
+                <%= link_to "Chat", chat_path, class: "nav-link #{"active" if current_page?(chat_path)}" if current_user %>
+              </li>
             </ul>
 
             <!-- Right side nav items -->

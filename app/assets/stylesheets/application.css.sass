@@ -66,5 +66,46 @@ main
     border: 1px solid black
     border-radius: 8px
 
+.chat-message
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    margin-bottom: 0.5rem
+
+    .message-sender
+        margin-left: 8px
+        margin-bottom: 2px
+        font-size: 0.85rem
+        font-weight: bold
+        color: #555
+
+    .message-bubble
+        display: flex
+        flex-direction: column
+        background-color: #e1ffc7
+        border-radius: 16px
+        border-top-left-radius: 0
+        padding: 0.5rem 0.75rem
+        max-width: 75%
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1)
+
+        .message-content
+            font-size: 1rem
+            color: #000
+            word-wrap: break-word
+            margin-bottom: 4px
+
+        .message-timestamp
+            font-size: 0.7rem
+            color: #777
+            align-self: flex-end
+
+.sent-by-current-user
+    align-items: flex-end
+
+    .message-bubble
+        background-color: #dcf8c6
+        border-top-left-radius: 16px
+        border-top-right-radius: 0
 
 @import "bootstrap"
