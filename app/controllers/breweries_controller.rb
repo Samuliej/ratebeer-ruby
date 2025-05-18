@@ -46,13 +46,7 @@ class BreweriesController < ApplicationController
 
     respond_to do |format|
       if @brewery.save
-        format.turbo_stream {
-          status = @brewery.active? ? "active" : "retired"
-          render turbo_stream: [
-            turbo_stream.append("#{status}_brewery_rows", partial: "brewery_row", locals: { brewery: @brewery }),
-            turbo_stream.replace("#{status}_brewery_count", partial: "brewery_count", locals: { status: status })
-          ]
-        }
+        format.turbo_stream { render_create_turbo_stream }
         format.html { redirect_to @brewery, notice: I18n.t('notices.brewery_created') }
         format.json { render :show, status: :created, location: @brewery }
       else
@@ -103,6 +97,18 @@ class BreweriesController < ApplicationController
   end
 
   private
+
+  def render_create_turbo_stream
+    status = brewery_status(@brewery)
+    render turbo_stream: [
+      turbo_stream.append("#{status}_brewery_rows", partial: "brewery_row", locals: { brewery: @brewery }),
+      turbo_stream.replace("#{status}_brewery_count", partial: "brewery_count", locals: { status: status })
+    ]
+  end
+
+  def brewery_status(brewery)
+    brewery.active? ? "active" : "retired"
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_brewery
