@@ -4,7 +4,7 @@
   <td><%= brewery.year %></td>
   <td><%= brewery.beers.count %></td>
   <td><%= round(brewery.average_rating) %></td>
-  <% if current_user.admin? %>
+  <% if current_user&.admin? %>
     <td>
       <%= button_to "Destroy", brewery,
                     method: :delete,
