@@ -8,8 +8,8 @@
     <td>
       <%= button_to "Destroy", brewery,
                     method: :delete,
-                    form: { data: { turbo_confirm: "Are you sure?" }, class: "d-inline" },
+                    form: { data: { turbo_confirm: "Are you sure you want to remove brewery #{brewery.name} and all it's beers?" }, class: "d-inline" },
                     class: "btn btn-danger ml-2" %>
     </td>
-<% end %>
+  <% end %>
 </tr>
