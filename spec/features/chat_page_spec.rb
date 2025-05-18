@@ -37,7 +37,6 @@ describe "Chat", type: :feature do
       click_button "Send"
 
       expect(page).to have_content("Hei vaan")
-      save_and_open_page
       expect(page).to have_selector(".chat-message", count: 1)
 
       fill_in "chat_message_content", with: "Toinen viesti"

@@ -77,6 +77,9 @@ class BreweriesController < ApplicationController
     @brewery.destroy!
 
     respond_to do |format|
+      format.turbo_stream {
+        render turbo_stream: turbo_stream.remove(@brewery)
+      }
       format.html { redirect_to breweries_path, status: :see_other, notice: I18n.t('notices.brewery_destroyed') }
       format.json { head :no_content }
     end
