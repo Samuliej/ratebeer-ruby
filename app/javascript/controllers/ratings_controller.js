@@ -2,7 +2,6 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   destroy() {
-    console.log('called')
     const confirmDelete = confirm("Are you sure you want to delete these selected ratings?")
     if (!confirmDelete) return
 
@@ -33,7 +32,14 @@ export default class extends Controller {
         console.log(error)
       })
   }
-  connect() {
-    console.log('Hello, Stimulus!')
+
+  selectAll() {
+    const checkboxes = document.querySelectorAll(".rating-checkbox")
+
+    if ([...checkboxes].every(c => c.checked === true)) {
+      checkboxes.forEach(c => c.checked = false)
+    } else {
+      checkboxes.forEach(c => c.checked = true)
+    }
   }
 }

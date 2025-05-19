@@ -15,7 +15,7 @@
         <tr class="rating">
           <% if @user == current_user %>
             <td>
-              <input type="checkbox" name="ratings[]" value="<%= rating.id %>" />
+              <input class="rating-checkbox" type="checkbox" name="ratings[]" value="<%= rating.id %>" />
             </td>
           <% end %>
           <td>
@@ -30,8 +30,11 @@
     </table>
   </div>
 
-  <% if @user == current_user %>
-    <button class="btn btn-danger mt-2 mb-2" data-action="click->ratings#destroy">Delete selected</button>
+  <div>
+    <% if @user == current_user %>
+      <button class="btn btn-danger mt-2 mb-2" data-action="click->ratings#destroy">Delete selected</button>
+      <input type="checkbox" data-action="ratings#selectAll" />
   <% end %>
+  </div>
 
 </div>
