@@ -4,7 +4,7 @@
   <%= form_with url: "#", data: { action: "calculator#calculate" } do %>
     <div>
       <%= label_tag nil, "Amount (liters)", class: "form-label" %>
-      <%= number_field_tag nil, 0.000, min: 0, step: 0.001, required: true, data: { calculator_target: "amount" }, class: "form-control" %>
+      <%= select_tag "amount", options_for_select(@beer_sizes), data: { calculator_target: "amount" }, class: "form-control" %>
     </div>
 
     <div>
