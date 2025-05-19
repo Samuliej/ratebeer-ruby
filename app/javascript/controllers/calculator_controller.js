@@ -48,6 +48,17 @@ export default class extends Controller {
 
   reset() {
     document.getElementById("result").innerHTML = ""
+    $(document).find(".custom-amount").slideUp()
+  }
+
+  change(event) {
+    const value = event.target.value
+    const customAmountField = $(document).find(".custom-amount")
+    if (value === "Custom") {
+      customAmountField.slideDown()
+    } else {
+      customAmountField.slideUp()
+    }
   }
 
 }
