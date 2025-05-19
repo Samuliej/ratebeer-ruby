@@ -25,7 +25,12 @@
     <%= form.check_box :active, class: "form-check" %>
   </div>
 
-  <div>
-    <%= form.submit class: "btn btn-primary" %>
+  <div class="row">
+    <div class="col-sm-6">
+      <%= form.submit class: "btn btn-primary" %>
+    </div>
+    <div class="col-sm-6">
+      <%= button_tag "Reset", class: "btn btn-secondary", type: "reset" %>
+    </div>
   </div>
 <% end %>
