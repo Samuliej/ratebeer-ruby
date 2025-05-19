@@ -116,11 +116,11 @@ class BreweriesController < ApplicationController
   end
 
   def set_active_breweries
-    @active_breweries = Brewery.includes(:beers).active
+    @active_breweries = Brewery.includes(:beers, :ratings).active
   end
 
   def set_retired_breweries
-    @retired_breweries = Brewery.includes(:beers).retired
+    @retired_breweries = Brewery.includes(:beers, :ratings).retired
   end
 
   # Only allow a list of trusted parameters through.

@@ -61,6 +61,9 @@
               <li class="nav-item">
                 <%= link_to "Chat", chat_path, class: "nav-link #{"active" if current_page?(chat_path)}" if current_user %>
               </li>
+              <li>
+                <%= link_to 'Tax calculator', calculator_path, { class: "nav-link #{"active" if current_page?(calculator_path)}" } %>
+              </li>
             </ul>
 
             <!-- Right side nav items -->

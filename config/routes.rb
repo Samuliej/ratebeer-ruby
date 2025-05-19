@@ -49,4 +49,5 @@ Rails.application.routes.draw do
   get 'brewerylist', to: 'breweries#list'
 
   get 'chat', to: 'chat#index'
+  get 'calculator', to: 'misc#calculator'
 end

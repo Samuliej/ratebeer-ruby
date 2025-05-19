@@ -1,0 +1,35 @@
+<h2>Beer tax calculator</h2>
+
+<div data-controller="calculator" data-calculator-vat-value="<%= @vat %>" class="container">
+  <%= form_with url: "#", data: { action: "calculator#calculate" } do %>
+    <div>
+      <%= label_tag nil, "Amount (liters)", class: "form-label" %>
+      <%= number_field_tag nil, 0.000, min: 0, step: 0.001, required: true, data: { calculator_target: "amount" }, class: "form-control" %>
+    </div>
+
+    <div>
+      <%= label_tag nil, "Alcohol by volume (ABV) (%)", class: "form-label" %>
+      <div class="d-flex inline-flex">
+        <%= number_field_tag nil, 0.00, min: 0, step: 0.01, required: true, data: { calculator_target: "abv" }, class: "form-control" %>
+      </div>
+    </div>
+
+    <div>
+      <%= label_tag nil, "Price (€)", class: "form-label" %>
+      <%= number_field_tag nil, 0.00, min: 0, step: 0.01, required: true, data: { calculator_target: "price" }, class: "form-control" %>
+    </div>
+
+    <div>
+      <p>Value added tax <%= (@vat * 100).round(1) %>%</p>
+    </div>
+
+    <br>
+    <div>
+      <%= tag.button "Calculate", type: "submit", class: "btn btn-primary submit-calculation" %>
+      <%= tag.button "Reset", type: "reset", data: { action: "calculator#reset" }, class: "btn btn-secondary reset-calculation" %>
+    </div>
+  <% end %>
+
+  <br>
+  <%= content_tag :div, "", id: "result" %>
+</div>
