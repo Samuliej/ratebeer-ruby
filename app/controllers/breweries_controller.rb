@@ -23,6 +23,7 @@ class BreweriesController < ApplicationController
   # GET /breweries/new
   def new
     @brewery = Brewery.new
+    @breweries_from_api = BreweriesApi.fetch_breweries
   end
 
   def list

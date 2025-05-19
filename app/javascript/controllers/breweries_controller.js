@@ -8,4 +8,11 @@ export default class extends Controller {
     this.yearTarget.value = ""
     this.activeTarget.checked = false
   }
+
+  pick(event) {
+    const selectedOption = event.target.selectedOptions[0]
+
+    this.nameTarget.value = selectedOption.dataset.name
+    this.yearTarget.value = selectedOption.dataset.year
+  }
 }

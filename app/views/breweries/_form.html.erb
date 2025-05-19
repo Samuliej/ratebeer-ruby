@@ -10,6 +10,17 @@
     </div>
   <% end %>
 
+  <select data-action="change->breweries#pick" class="form-control">
+    <% @breweries_from_api.each do |brewery| %>
+      <option
+        value="<%= brewery[:name] %>"
+        data-name="<%= brewery[:name] %>"
+        data-year="<%= brewery[:year] %>">
+        <%= "#{brewery[:name]} (#{brewery[:year]})" %>
+      </option>
+    <% end %>
+  </select>
+
   <div class="mb-3">
     <%= form.label :name, class: "form-label" %>
     <%= form.text_field :name, class: "form-control", data: { breweries_target: "name" } %>
