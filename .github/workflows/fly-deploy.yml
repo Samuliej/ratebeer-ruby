@@ -14,7 +14,7 @@ jobs:
       github.event.workflow_run.conclusion == 'success' &&
       !contains(github.event.workflow_run.head_commit.message, '[Skip]')
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - run: flyctl deploy --remote-only
         env:
